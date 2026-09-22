@@ -4,7 +4,7 @@ import type { Mission } from "./mock-data";
 const KEY = "nodale.missions";
 const EVENT = "nodale-missions";
 
-export type PublishedMission = Mission & { recommended?: string[] };
+export type PublishedMission = Mission & { recommended?: string[]; paused?: boolean };
 
 export function readPublishedMissions(): PublishedMission[] {
   if (typeof window === "undefined") return [];
@@ -25,6 +25,31 @@ export function publishMission(mission: PublishedMission) {
   window.localStorage.setItem(KEY, JSON.stringify(all));
   window.dispatchEvent(new Event(EVENT));
   return mission.id;
+}
+
+export function updatePublishedMission(id: string, patch: Partial<PublishedMission>) {
+  const all = readPublishedMissions();
+  const next = all.map((m) => (m.id === id ? { ...m, ...patch } : m));
+  window.localStorage.setItem(KEY, JSON.stringify(next));
+  window.dispatchEvent(new Event(EVENT));
+  return next.find((m) => m.id === id) ?? null;
+}
+
+export function usePublishedMission(id: string) {
+  const [mission, setMission] = useState<PublishedMission | null>(null);
+
+  useEffect(() => {
+    const sync = () => setMission(getPublishedMission(id));
+    sync();
+    window.addEventListener(EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, [id]);
+
+  return mission;
 }
 
 export function usePublishedMissions() {
