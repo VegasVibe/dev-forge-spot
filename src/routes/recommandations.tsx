@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
@@ -6,6 +6,8 @@ import { AppShell } from "@/components/app-shell";
 import { Avatar, Label, Meter, Panel, SkillTag } from "@/components/ui-kit";
 import { freelances, getFreelance } from "@/lib/mock-data";
 import { recommendFreelances, type MatchResult } from "@/lib/matching.functions";
+import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/published-missions";
+import { useSession } from "@/lib/session";
 
 export const Route = createFileRoute("/recommandations")({
   head: () => ({
