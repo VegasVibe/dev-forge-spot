@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CandidaturesRouteImport } from './routes/candidatures'
+import { Route as EntretiensRouteImport } from './routes/entretiens'
 import { Route as HistoriqueRouteImport } from './routes/historique'
 import { Route as MessagerieRouteImport } from './routes/messagerie'
 import { Route as PaiementsRouteImport } from './routes/paiements'
@@ -37,6 +39,16 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CandidaturesRoute = CandidaturesRouteImport.update({
+  id: '/candidatures',
+  path: '/candidatures',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntretiensRoute = EntretiensRouteImport.update({
+  id: '/entretiens',
+  path: '/entretiens',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriqueRoute = HistoriqueRouteImport.update({
@@ -128,6 +140,8 @@ const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/candidatures': typeof CandidaturesRoute
+  '/entretiens': typeof EntretiensRoute
   '/historique': typeof HistoriqueRoute
   '/messagerie': typeof MessagerieRoute
   '/paiements': typeof PaiementsRoute
@@ -149,6 +163,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/candidatures': typeof CandidaturesRoute
+  '/entretiens': typeof EntretiensRoute
   '/historique': typeof HistoriqueRoute
   '/messagerie': typeof MessagerieRoute
   '/paiements': typeof PaiementsRoute
@@ -171,6 +187,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/candidatures': typeof CandidaturesRoute
+  '/entretiens': typeof EntretiensRoute
   '/historique': typeof HistoriqueRoute
   '/messagerie': typeof MessagerieRoute
   '/paiements': typeof PaiementsRoute
@@ -194,6 +212,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/candidatures'
+    | '/entretiens'
     | '/historique'
     | '/messagerie'
     | '/paiements'
@@ -215,6 +235,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/candidatures'
+    | '/entretiens'
     | '/historique'
     | '/messagerie'
     | '/paiements'
@@ -236,6 +258,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/candidatures'
+    | '/entretiens'
     | '/historique'
     | '/messagerie'
     | '/paiements'
@@ -258,6 +282,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  CandidaturesRoute: typeof CandidaturesRoute
+  EntretiensRoute: typeof EntretiensRoute
   HistoriqueRoute: typeof HistoriqueRoute
   MessagerieRoute: typeof MessagerieRoute
   PaiementsRoute: typeof PaiementsRoute
@@ -291,6 +317,20 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/candidatures': {
+      id: '/candidatures'
+      path: '/candidatures'
+      fullPath: '/candidatures'
+      preLoaderRoute: typeof CandidaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entretiens': {
+      id: '/entretiens'
+      path: '/entretiens'
+      fullPath: '/entretiens'
+      preLoaderRoute: typeof EntretiensRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historique': {
@@ -418,6 +458,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  CandidaturesRoute: CandidaturesRoute,
+  EntretiensRoute: EntretiensRoute,
   HistoriqueRoute: HistoriqueRoute,
   MessagerieRoute: MessagerieRoute,
   PaiementsRoute: PaiementsRoute,
