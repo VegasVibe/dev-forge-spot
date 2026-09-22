@@ -17,7 +17,7 @@ export const Route = createFileRoute("/messagerie")({
 });
 
 function Messagerie() {
-  const [activeId, setActiveId] = useState(conversations[0].id);
+  const [activeId, setActiveId] = useState(conversations[0]!.id);
   const [draft, setDraft] = useState("");
   const [sent, setSent] = useState<Record<string, { from: "me"; text: string; time: string }[]>>({});
   const active = conversations.find((c) => c.id === activeId)!;

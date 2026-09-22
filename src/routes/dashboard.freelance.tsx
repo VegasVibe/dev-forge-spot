@@ -16,7 +16,7 @@ export const Route = createFileRoute("/dashboard/freelance")({
 });
 
 function DashboardFreelance() {
-  const me = freelances[0];
+  const me = freelances[0]!;
   const mine = missions.filter((m) => m.freelanceId === me.id || m.status === "todo").slice(0, 4);
   const pending = payments.filter((p) => p.state !== "paid");
 
