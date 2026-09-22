@@ -26,9 +26,30 @@ export const Route = createFileRoute("/missions/$missionId")({
 });
 
 function MissionDetail() {
-  const { mission } = Route.useLoaderData();
-  const freelance = getFreelance(mission.freelanceId);
+  const { missionId } = Route.useParams();
+  const { mission: base } = Route.useLoaderData();
+  const [local, setLocal] = useState<PublishedMission | null>(null);
   const [applied, setApplied] = useState(false);
+
+  useEffect(() => {
+    if (!base) setLocal(getPublishedMission(missionId));
+  }, [base, missionId]);
+
+  const mission = base ?? local;
+  const freelance = getFreelance(mission?.freelanceId);
+
+  if (!mission) {
+    return (
+      <AppShell kicker="Mission" title="Mission introuvable">
+        <div className="glass rounded-2xl ring-1 ring-border p-5">
+          <p className="text-sm text-ink-soft">Cette mission n'existe pas ou n'est plus publiée.</p>
+          <Link to="/missions" className="mt-4 inline-flex rounded-xl glass ring-1 ring-border px-4 py-2.5 text-sm">
+            Retour aux missions
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell
