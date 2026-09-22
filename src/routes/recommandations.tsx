@@ -75,6 +75,8 @@ function Recommandations() {
   const [techs, setTechs] = useState<string[]>([]);
 
   const shortlist = useShortlist();
+  const alerts = useAlerts();
+  const [alertSaved, setAlertSaved] = useState<string | null>(null);
   const [contactId, setContactId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [sentTo, setSentTo] = useState<string[]>([]);
