@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { clearSession, useSession } from "@/lib/session";
 import { Label } from "@/components/ui-kit";
+import { markAllRead, useNotifications } from "@/lib/notifications-store";
 
 const nav = [
   { to: "/dashboard/entreprise", label: "Tableau de bord entreprise" },
@@ -10,6 +11,8 @@ const nav = [
   { to: "/recommandations", label: "Recommandation IA" },
   { to: "/freelances", label: "Développeurs" },
   { to: "/shortlist", label: "Shortlist" },
+  { to: "/candidatures", label: "Candidatures" },
+  { to: "/entretiens", label: "Entretiens" },
   { to: "/suivi", label: "Suivi des missions" },
   { to: "/paiements", label: "Paiements" },
   { to: "/messagerie", label: "Messagerie" },
