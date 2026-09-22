@@ -10,6 +10,9 @@ import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/p
 import { useSession } from "@/lib/session";
 import { useShortlist } from "@/lib/shortlist";
 import { sendDirectMessage } from "@/lib/direct-messages";
+import { pushNotifications } from "@/lib/notifications-store";
+import { createApplications } from "@/lib/applications";
+import { checkAlerts, deleteCriteria, matchingFreelances, saveCriteria, useAlerts } from "@/lib/alerts";
 
 const allTechs = Array.from(new Set(freelances.flatMap((f) => f.skills))).sort((a, b) => a.localeCompare(b));
 const experienceLevels = [
@@ -72,6 +75,8 @@ function Recommandations() {
   const [techs, setTechs] = useState<string[]>([]);
 
   const shortlist = useShortlist();
+  const alerts = useAlerts();
+  const [alertSaved, setAlertSaved] = useState<string | null>(null);
   const [contactId, setContactId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [sentTo, setSentTo] = useState<string[]>([]);
@@ -171,12 +176,40 @@ function Recommandations() {
       duration: duration.trim() || "À définir",
       status: "todo",
       progress: 0,
-      applicants: 0,
       postedAt: "À l'instant",
       recommended: result.recommandations.map((r) => r.id),
+      applicants: result.recommandations.length,
     });
 
+    const recommendedIds = result.recommandations.map((r) => r.id);
+
+    pushNotifications(
+      recommendedIds.map((fid) => {
+        const f = getFreelance(fid);
+        return {
+          title: "Nouvelle mission correspondant à votre profil",
+          detail: `${title} · ${parseBudget(budget) ? `${parseBudget(budget)} €` : "budget à définir"}`,
+          kind: "mission" as const,
+          audience: f?.name ?? "Développeur",
+        };
+      }),
+    );
+
+    createApplications(id, title, recommendedIds);
+
     navigate({ to: "/missions/$missionId", params: { missionId: id } });
+  }
+
+  function saveAlert() {
+    const created = saveCriteria({
+      label: category,
+      category,
+      maxRate: Number(maxRate.replace(/\D/g, "")) || 0,
+      availableOnly,
+      minMissions,
+      techs,
+    });
+    setAlertSaved(`Alerte « ${created.label} » enregistrée · ${created.knownIds.length} profils suivis.`);
   }
 
   return (
@@ -305,6 +338,62 @@ function Recommandations() {
                 </p>
               )}
             </div>
+          </Panel>
+
+          <Panel className="mt-4">
+            <div className="flex items-center justify-between gap-3">
+              <Label>Alertes sur ces critères</Label>
+              <button
+                onClick={() => {
+                  const found = checkAlerts();
+                  setAlertSaved(
+                    found > 0
+                      ? `${found} nouveau${found > 1 ? "x" : ""} profil${found > 1 ? "s" : ""} correspondant${found > 1 ? "s" : ""} — voir les notifications.`
+                      : "Aucun nouveau profil correspondant pour le moment.",
+                  );
+                }}
+                className="text-[11px] font-mono text-ink-faint hover:text-accent"
+              >
+                Vérifier maintenant
+              </button>
+            </div>
+
+            <button
+              onClick={saveAlert}
+              className="mt-4 w-full rounded-xl glass text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Enregistrer ces critères et m'alerter
+            </button>
+            {alertSaved && <p className="mt-2 text-xs text-ok">{alertSaved}</p>}
+
+            {alerts.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {alerts.map((a) => (
+                  <li key={a.id} className="rounded-xl bg-card/70 ring-1 ring-border px-3.5 py-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-medium">{a.label}</span>
+                      <button
+                        onClick={() => deleteCriteria(a.id)}
+                        className="text-[11px] font-mono text-ink-faint hover:text-destructive"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                    <div className="mt-1 text-[11px] font-mono text-ink-soft tabular-nums">
+                      {a.maxRate ? `≤ ${a.maxRate} €/j · ` : ""}
+                      {a.availableOnly ? "disponibles · " : ""}
+                      {a.minMissions ? `${a.minMissions}+ missions · ` : ""}
+                      {a.techs.length ? `${a.techs.join(", ")} · ` : ""}
+                      {matchingFreelances(a).length} profils suivis
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="mt-3 text-xs text-ink-soft">
+              Dès qu'un profil correspondant devient disponible, une notification apparaît dans la cloche en haut de
+              page.
+            </p>
           </Panel>
         </div>
 

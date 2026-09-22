@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
-import { Avatar, Label, Meter, SkillTag, StatusBadge } from "@/components/ui-kit";
+import { Avatar, Label, Meter, Panel, SkillTag, StatusBadge } from "@/components/ui-kit";
 import { formatEuro, getFreelance, getMission } from "@/lib/mock-data";
-import { getPublishedMission, type PublishedMission } from "@/lib/published-missions";
+import { updatePublishedMission, usePublishedMission } from "@/lib/published-missions";
+import { useApplications } from "@/lib/applications";
+import { ApplicationCard } from "@/routes/candidatures";
+import { pushNotifications } from "@/lib/notifications-store";
 
 export const Route = createFileRoute("/missions/$missionId")({
   loader: ({ params }) => ({ mission: getMission(params.missionId) ?? null }),
@@ -28,15 +31,61 @@ export const Route = createFileRoute("/missions/$missionId")({
 function MissionDetail() {
   const { missionId } = Route.useParams();
   const { mission: base } = Route.useLoaderData();
-  const [local, setLocal] = useState<PublishedMission | null>(null);
+  const local = usePublishedMission(missionId);
   const [applied, setApplied] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState({ title: "", summary: "", budget: "", duration: "" });
 
-  useEffect(() => {
-    if (!base) setLocal(getPublishedMission(missionId));
-  }, [base, missionId]);
-
-  const mission = base ?? local;
+  const applications = useApplications(missionId);
+  const mission = local ?? base;
+  const owned = Boolean(local);
   const freelance = getFreelance(mission?.freelanceId);
+
+  function startEdit() {
+    if (!mission) return;
+    setForm({
+      title: mission.title,
+      summary: mission.summary,
+      budget: String(mission.budget),
+      duration: mission.duration,
+    });
+    setEditing(true);
+  }
+
+  function saveEdit() {
+    updatePublishedMission(missionId, {
+      title: form.title.trim() || mission!.title,
+      summary: form.summary.trim() || mission!.summary,
+      budget: Number(form.budget.replace(/\D/g, "")) || 0,
+      duration: form.duration.trim() || mission!.duration,
+    });
+    setEditing(false);
+  }
+
+  function togglePause() {
+    const paused = !local?.paused;
+    updatePublishedMission(missionId, { paused, status: paused ? "todo" : "active" });
+    pushNotifications([
+      {
+        title: paused ? "Mission mise en pause" : "Mission relancée",
+        detail: mission?.title ?? "",
+        kind: "mission",
+        audience: "Développeurs recommandés",
+      },
+    ]);
+  }
+
+  function closeMission() {
+    updatePublishedMission(missionId, { status: "archived", paused: false, progress: 100 });
+    pushNotifications([
+      {
+        title: "Mission clôturée",
+        detail: mission?.title ?? "",
+        kind: "mission",
+        audience: "Développeurs recommandés",
+      },
+    ]);
+  }
 
   if (!mission) {
     return (
@@ -56,27 +105,114 @@ function MissionDetail() {
       kicker={`${mission.company} · ${mission.team}`}
       title={mission.title}
       actions={
-        <>
-          <button
-            onClick={() => setApplied(true)}
-            className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
-          >
-            {applied ? "Candidature envoyée" : "Postuler à la mission"}
-          </button>
-          <Link
-            to="/messagerie"
-            className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
-          >
-            Contacter l'entreprise
-          </Link>
-        </>
+        owned ? (
+          <>
+            <button
+              onClick={startEdit}
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Modifier la mission
+            </button>
+            <button
+              onClick={togglePause}
+              disabled={mission.status === "archived"}
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors disabled:opacity-40"
+            >
+              {local?.paused ? "Reprendre" : "Mettre en pause"}
+            </button>
+            <button
+              onClick={closeMission}
+              disabled={mission.status === "archived"}
+              className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
+            >
+              {mission.status === "archived" ? "Mission clôturée" : "Clôturer la mission"}
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => setApplied(true)}
+              className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+            >
+              {applied ? "Candidature envoyée" : "Postuler à la mission"}
+            </button>
+            <Link
+              to="/messagerie"
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Contacter l'entreprise
+            </Link>
+          </>
+        )
       }
     >
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="xl:col-span-2 space-y-4">
+          {editing && (
+            <Panel>
+              <Label>Modifier la mission</Label>
+              <div className="mt-4 space-y-3">
+                <div>
+                  <label className="label-mono">Titre</label>
+                  <input
+                    value={form.title}
+                    onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+                    className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+                <div>
+                  <label className="label-mono">Résumé</label>
+                  <textarea
+                    rows={3}
+                    value={form.summary}
+                    onChange={(e) => setForm((f) => ({ ...f, summary: e.target.value }))}
+                    className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring resize-none"
+                  />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="label-mono">Budget (€)</label>
+                    <input
+                      value={form.budget}
+                      onChange={(e) => setForm((f) => ({ ...f, budget: e.target.value }))}
+                      className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <div>
+                    <label className="label-mono">Durée</label>
+                    <input
+                      value={form.duration}
+                      onChange={(e) => setForm((f) => ({ ...f, duration: e.target.value }))}
+                      className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={saveEdit}
+                    className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2 px-3.5 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+                  >
+                    Enregistrer
+                  </button>
+                  <button
+                    onClick={() => setEditing(false)}
+                    className="rounded-xl glass text-sm py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            </Panel>
+          )}
+
           <div className="glass rounded-2xl ring-1 ring-border p-5">
             <div className="flex flex-wrap items-center gap-3">
               <StatusBadge status={mission.status} />
+              {local?.paused && (
+                <span className="inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ring-1 bg-arch-soft text-arch ring-border">
+                  En pause
+                </span>
+              )}
               <span className="label-mono">Publiée le {mission.postedAt}</span>
               <span className="label-mono">{mission.applicants} candidatures</span>
             </div>
@@ -111,6 +247,31 @@ function MissionDetail() {
               <span>{mission.duration}</span>
             </div>
           </div>
+
+          {applications.length > 0 && (
+            <div>
+              <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+                <div>
+                  <Label>Recrutement</Label>
+                  <h2 className="mt-1 font-display font-semibold text-xl tracking-tight">
+                    {applications.length} candidature{applications.length > 1 ? "s" : ""} reçue
+                    {applications.length > 1 ? "s" : ""}
+                  </h2>
+                </div>
+                <Link
+                  to="/candidatures"
+                  className="rounded-xl glass text-sm font-medium py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                >
+                  Tout comparer
+                </Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {applications.map((a) => (
+                  <ApplicationCard key={a.id} app={a} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">

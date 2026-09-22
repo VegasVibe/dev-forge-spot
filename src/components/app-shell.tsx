@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { clearSession, useSession } from "@/lib/session";
 import { Label } from "@/components/ui-kit";
+import { markAllRead, useNotifications } from "@/lib/notifications-store";
 
 const nav = [
   { to: "/dashboard/entreprise", label: "Tableau de bord entreprise" },
@@ -10,6 +11,8 @@ const nav = [
   { to: "/recommandations", label: "Recommandation IA" },
   { to: "/freelances", label: "Développeurs" },
   { to: "/shortlist", label: "Shortlist" },
+  { to: "/candidatures", label: "Candidatures" },
+  { to: "/entretiens", label: "Entretiens" },
   { to: "/suivi", label: "Suivi des missions" },
   { to: "/paiements", label: "Paiements" },
   { to: "/messagerie", label: "Messagerie" },
@@ -50,6 +53,9 @@ export function AppShell({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const session = useSession();
+  const notifications = useNotifications();
+  const [openBell, setOpenBell] = useState(false);
+  const unread = notifications.filter((n) => !n.read).length;
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
@@ -86,6 +92,47 @@ export function AppShell({
                 >
                   Freelance
                 </Link>
+              </div>
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setOpenBell((o) => !o);
+                    if (!openBell) markAllRead();
+                  }}
+                  className="relative grid place-items-center size-9 rounded-full glass ring-1 ring-border hover:bg-card transition-colors"
+                  aria-label="Notifications"
+                >
+                  <span className="size-3.5 rounded-t-full border border-ink-soft border-b-0" />
+                  {unread > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 grid place-items-center min-w-4 h-4 px-1 rounded-full bg-accent text-accent-foreground text-[10px] font-medium">
+                      {unread}
+                    </span>
+                  )}
+                </button>
+                {openBell && (
+                  <div className="absolute right-0 mt-2 w-[320px] max-h-[380px] overflow-y-auto glass-strong rounded-2xl ring-1 ring-border p-3 shadow-lg">
+                    <div className="px-1 pb-2">
+                      <Label>Notifications</Label>
+                    </div>
+                    {notifications.length === 0 ? (
+                      <p className="px-1 py-3 text-xs text-ink-soft">
+                        Aucune notification pour l'instant.
+                      </p>
+                    ) : (
+                      <ul className="space-y-1">
+                        {notifications.slice(0, 20).map((n) => (
+                          <li key={n.id} className="rounded-xl px-2.5 py-2 hover:bg-card">
+                            <div className="text-sm font-medium">{n.title}</div>
+                            <div className="text-xs text-ink-soft">{n.detail}</div>
+                            <div className="mt-0.5 text-[10px] font-mono text-ink-faint">
+                              {n.audience} · {n.time}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
               </div>
               <span className="grid place-items-center size-9 rounded-full bg-accent-soft text-accent font-display font-semibold text-sm ring-1 ring-accent/20">
                 {(session?.name ?? "Nodale").slice(0, 2).toUpperCase()}
