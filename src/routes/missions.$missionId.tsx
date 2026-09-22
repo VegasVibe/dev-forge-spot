@@ -247,6 +247,31 @@ function MissionDetail() {
               <span>{mission.duration}</span>
             </div>
           </div>
+
+          {applications.length > 0 && (
+            <div>
+              <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+                <div>
+                  <Label>Recrutement</Label>
+                  <h2 className="mt-1 font-display font-semibold text-xl tracking-tight">
+                    {applications.length} candidature{applications.length > 1 ? "s" : ""} reçue
+                    {applications.length > 1 ? "s" : ""}
+                  </h2>
+                </div>
+                <Link
+                  to="/candidatures"
+                  className="rounded-xl glass text-sm font-medium py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                >
+                  Tout comparer
+                </Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {applications.map((a) => (
+                  <ApplicationCard key={a.id} app={a} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">
