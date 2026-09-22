@@ -46,6 +46,8 @@ const categories = [
 
 function Recommandations() {
   const run = useServerFn(recommendFreelances);
+  const navigate = useNavigate();
+  const session = useSession();
   const [brief, setBrief] = useState("");
   const [category, setCategory] = useState(categories[0]!);
   const [budget, setBudget] = useState("");
