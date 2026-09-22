@@ -105,20 +105,45 @@ function MissionDetail() {
       kicker={`${mission.company} · ${mission.team}`}
       title={mission.title}
       actions={
-        <>
-          <button
-            onClick={() => setApplied(true)}
-            className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
-          >
-            {applied ? "Candidature envoyée" : "Postuler à la mission"}
-          </button>
-          <Link
-            to="/messagerie"
-            className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
-          >
-            Contacter l'entreprise
-          </Link>
-        </>
+        owned ? (
+          <>
+            <button
+              onClick={startEdit}
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Modifier la mission
+            </button>
+            <button
+              onClick={togglePause}
+              disabled={mission.status === "archived"}
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors disabled:opacity-40"
+            >
+              {local?.paused ? "Reprendre" : "Mettre en pause"}
+            </button>
+            <button
+              onClick={closeMission}
+              disabled={mission.status === "archived"}
+              className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
+            >
+              {mission.status === "archived" ? "Mission clôturée" : "Clôturer la mission"}
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => setApplied(true)}
+              className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+            >
+              {applied ? "Candidature envoyée" : "Postuler à la mission"}
+            </button>
+            <Link
+              to="/messagerie"
+              className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Contacter l'entreprise
+            </Link>
+          </>
+        )
       }
     >
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
