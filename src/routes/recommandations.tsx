@@ -339,6 +339,62 @@ function Recommandations() {
               )}
             </div>
           </Panel>
+
+          <Panel className="mt-4">
+            <div className="flex items-center justify-between gap-3">
+              <Label>Alertes sur ces critères</Label>
+              <button
+                onClick={() => {
+                  const found = checkAlerts();
+                  setAlertSaved(
+                    found > 0
+                      ? `${found} nouveau${found > 1 ? "x" : ""} profil${found > 1 ? "s" : ""} correspondant${found > 1 ? "s" : ""} — voir les notifications.`
+                      : "Aucun nouveau profil correspondant pour le moment.",
+                  );
+                }}
+                className="text-[11px] font-mono text-ink-faint hover:text-accent"
+              >
+                Vérifier maintenant
+              </button>
+            </div>
+
+            <button
+              onClick={saveAlert}
+              className="mt-4 w-full rounded-xl glass text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+            >
+              Enregistrer ces critères et m'alerter
+            </button>
+            {alertSaved && <p className="mt-2 text-xs text-ok">{alertSaved}</p>}
+
+            {alerts.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {alerts.map((a) => (
+                  <li key={a.id} className="rounded-xl bg-card/70 ring-1 ring-border px-3.5 py-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-medium">{a.label}</span>
+                      <button
+                        onClick={() => deleteCriteria(a.id)}
+                        className="text-[11px] font-mono text-ink-faint hover:text-destructive"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                    <div className="mt-1 text-[11px] font-mono text-ink-soft tabular-nums">
+                      {a.maxRate ? `≤ ${a.maxRate} €/j · ` : ""}
+                      {a.availableOnly ? "disponibles · " : ""}
+                      {a.minMissions ? `${a.minMissions}+ missions · ` : ""}
+                      {a.techs.length ? `${a.techs.join(", ")} · ` : ""}
+                      {matchingFreelances(a).length} profils suivis
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="mt-3 text-xs text-ink-soft">
+              Dès qu'un profil correspondant devient disponible, une notification apparaît dans la cloche en haut de
+              page.
+            </p>
+          </Panel>
         </div>
 
         <div className="lg:col-span-7 space-y-4">
