@@ -40,7 +40,7 @@ function MissionsPage() {
           (query === "" ||
             `${m.title} ${m.company} ${m.skills.join(" ")}`.toLowerCase().includes(query.toLowerCase())),
       ),
-    [query, category, status, minBudget],
+    [query, category, status, minBudget, published],
   );
 
   return (
