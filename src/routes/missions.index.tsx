@@ -28,10 +28,11 @@ function MissionsPage() {
   const [category, setCategory] = useState<(typeof categories)[number]>("Toutes");
   const [status, setStatus] = useState<MissionStatus | "tous">("tous");
   const [minBudget, setMinBudget] = useState(0);
+  const published = usePublishedMissions();
 
   const results = useMemo(
     () =>
-      missions.filter(
+      [...published, ...missions].filter(
         (m) =>
           (category === "Toutes" || m.category === category) &&
           (status === "tous" || m.status === status) &&
