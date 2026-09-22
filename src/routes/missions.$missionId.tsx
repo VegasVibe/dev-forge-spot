@@ -31,15 +31,61 @@ export const Route = createFileRoute("/missions/$missionId")({
 function MissionDetail() {
   const { missionId } = Route.useParams();
   const { mission: base } = Route.useLoaderData();
-  const [local, setLocal] = useState<PublishedMission | null>(null);
+  const local = usePublishedMission(missionId);
   const [applied, setApplied] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState({ title: "", summary: "", budget: "", duration: "" });
 
-  useEffect(() => {
-    if (!base) setLocal(getPublishedMission(missionId));
-  }, [base, missionId]);
-
-  const mission = base ?? local;
+  const applications = useApplications(missionId);
+  const mission = local ?? base;
+  const owned = Boolean(local);
   const freelance = getFreelance(mission?.freelanceId);
+
+  function startEdit() {
+    if (!mission) return;
+    setForm({
+      title: mission.title,
+      summary: mission.summary,
+      budget: String(mission.budget),
+      duration: mission.duration,
+    });
+    setEditing(true);
+  }
+
+  function saveEdit() {
+    updatePublishedMission(missionId, {
+      title: form.title.trim() || mission!.title,
+      summary: form.summary.trim() || mission!.summary,
+      budget: Number(form.budget.replace(/\D/g, "")) || 0,
+      duration: form.duration.trim() || mission!.duration,
+    });
+    setEditing(false);
+  }
+
+  function togglePause() {
+    const paused = !local?.paused;
+    updatePublishedMission(missionId, { paused, status: paused ? "todo" : "active" });
+    pushNotifications([
+      {
+        title: paused ? "Mission mise en pause" : "Mission relancée",
+        detail: mission?.title ?? "",
+        kind: "mission",
+        audience: "Développeurs recommandés",
+      },
+    ]);
+  }
+
+  function closeMission() {
+    updatePublishedMission(missionId, { status: "archived", paused: false, progress: 100 });
+    pushNotifications([
+      {
+        title: "Mission clôturée",
+        detail: mission?.title ?? "",
+        kind: "mission",
+        audience: "Développeurs recommandés",
+      },
+    ]);
+  }
 
   if (!mission) {
     return (
