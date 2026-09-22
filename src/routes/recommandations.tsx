@@ -174,9 +174,38 @@ function Recommandations() {
       applicants: 0,
       postedAt: "À l'instant",
       recommended: result.recommandations.map((r) => r.id),
+      applicants: result.recommandations.length,
     });
 
+    const recommendedIds = result.recommandations.map((r) => r.id);
+
+    pushNotifications(
+      recommendedIds.map((fid) => {
+        const f = getFreelance(fid);
+        return {
+          title: "Nouvelle mission correspondant à votre profil",
+          detail: `${title} · ${parseBudget(budget) ? `${parseBudget(budget)} €` : "budget à définir"}`,
+          kind: "mission" as const,
+          audience: f?.name ?? "Développeur",
+        };
+      }),
+    );
+
+    createApplications(id, title, recommendedIds);
+
     navigate({ to: "/missions/$missionId", params: { missionId: id } });
+  }
+
+  function saveAlert() {
+    const created = saveCriteria({
+      label: category,
+      category,
+      maxRate: Number(maxRate.replace(/\D/g, "")) || 0,
+      availableOnly,
+      minMissions,
+      techs,
+    });
+    setAlertSaved(`Alerte « ${created.label} » enregistrée · ${created.knownIds.length} profils suivis.`);
   }
 
   return (
