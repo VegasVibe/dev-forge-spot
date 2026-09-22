@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { Chip, SkillTag, StatusBadge } from "@/components/ui-kit";
 import { formatEuro, missions, statusLabels, type MissionStatus } from "@/lib/mock-data";
+import { usePublishedMissions } from "@/lib/published-missions";
 
 export const Route = createFileRoute("/missions/")({
   head: () => ({
