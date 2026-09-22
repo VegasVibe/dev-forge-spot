@@ -11,6 +11,7 @@ const BriefInput = z.object({
   category: z.string(),
   budget: z.string(),
   duration: z.string(),
+  candidateIds: z.array(z.string()).nullable().default(null),
 });
 
 const MatchSchema = z.object({
