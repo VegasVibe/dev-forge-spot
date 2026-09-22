@@ -87,13 +87,13 @@ export function StatCard({
 
 export function PrimaryButton({ to, children, className = "" }: { to?: string; children: ReactNode; className?: string }) {
   const cls = `inline-flex items-center justify-center gap-2 rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 transition-colors hover:bg-accent/90 ${className}`;
-  if (to) return <Link to={to} className={cls}>{children}</Link>;
+  if (to) return <Link to={to as never} className={cls}>{children}</Link>;
   return <button className={cls}>{children}</button>;
 }
 
 export function GhostButton({ to, children, className = "" }: { to?: string; children: ReactNode; className?: string }) {
   const cls = `inline-flex items-center justify-center gap-2 rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border transition-colors hover:bg-card ${className}`;
-  if (to) return <Link to={to} className={cls}>{children}</Link>;
+  if (to) return <Link to={to as never} className={cls}>{children}</Link>;
   return <button className={cls}>{children}</button>;
 }
 

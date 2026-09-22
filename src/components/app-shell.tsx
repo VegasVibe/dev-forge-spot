@@ -22,7 +22,7 @@ const account = [
 function NavLink({ to, label, active }: { to: string; label: string; active: boolean }) {
   return (
     <Link
-      to={to}
+      to={to as never}
       className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
         active ? "bg-accent-soft text-accent font-medium ring-1 ring-accent/15" : "text-ink-soft hover:bg-card"
       }`}
