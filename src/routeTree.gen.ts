@@ -15,6 +15,10 @@ import { Route as ProduitRouteImport } from './routes/produit'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
 import { Route as DashboardFreelanceRouteImport } from './routes/dashboard.freelance'
+import { Route as FreelancesIndexRouteImport } from './routes/freelances.index'
+import { Route as FreelancesFreelanceIdRouteImport } from './routes/freelances.$freelanceId'
+import { Route as MissionsIndexRouteImport } from './routes/missions.index'
+import { Route as MissionsMissionIdRouteImport } from './routes/missions.$missionId'
 import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
 import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
 
@@ -48,6 +52,26 @@ const DashboardFreelanceRoute = DashboardFreelanceRouteImport.update({
   path: '/dashboard/freelance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FreelancesIndexRoute = FreelancesIndexRouteImport.update({
+  id: '/freelances/',
+  path: '/freelances/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreelancesFreelanceIdRoute = FreelancesFreelanceIdRouteImport.update({
+  id: '/freelances/$freelanceId',
+  path: '/freelances/$freelanceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionsIndexRoute = MissionsIndexRouteImport.update({
+  id: '/missions/',
+  path: '/missions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionsMissionIdRoute = MissionsMissionIdRouteImport.update({
+  id: '/missions/$missionId',
+  path: '/missions/$missionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingEntrepriseRoute = OnboardingEntrepriseRouteImport.update({
   id: '/onboarding/entreprise',
   path: '/onboarding/entreprise',
@@ -66,8 +90,12 @@ export interface FileRoutesByFullPath {
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
   '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances/': typeof FreelancesIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +104,12 @@ export interface FileRoutesByTo {
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
   '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances': typeof FreelancesIndexRoute
+  '/missions': typeof MissionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +119,12 @@ export interface FileRoutesById {
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
   '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances/': typeof FreelancesIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,8 +135,12 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
     | '/onboarding/entreprise'
     | '/onboarding/freelance'
+    | '/freelances/'
+    | '/missions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -109,8 +149,12 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
     | '/onboarding/entreprise'
     | '/onboarding/freelance'
+    | '/freelances'
+    | '/missions'
   id:
     | '__root__'
     | '/'
@@ -119,8 +163,12 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
     | '/onboarding/entreprise'
     | '/onboarding/freelance'
+    | '/freelances/'
+    | '/missions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,8 +178,12 @@ export interface RootRouteChildren {
   TarifsRoute: typeof TarifsRoute
   DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
   DashboardFreelanceRoute: typeof DashboardFreelanceRoute
+  FreelancesFreelanceIdRoute: typeof FreelancesFreelanceIdRoute
+  MissionsMissionIdRoute: typeof MissionsMissionIdRoute
   OnboardingEntrepriseRoute: typeof OnboardingEntrepriseRoute
   OnboardingFreelanceRoute: typeof OnboardingFreelanceRoute
+  FreelancesIndexRoute: typeof FreelancesIndexRoute
+  MissionsIndexRoute: typeof MissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +230,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFreelanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/freelances/': {
+      id: '/freelances/'
+      path: '/freelances'
+      fullPath: '/freelances/'
+      preLoaderRoute: typeof FreelancesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freelances/$freelanceId': {
+      id: '/freelances/$freelanceId'
+      path: '/freelances/$freelanceId'
+      fullPath: '/freelances/$freelanceId'
+      preLoaderRoute: typeof FreelancesFreelanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missions/': {
+      id: '/missions/'
+      path: '/missions'
+      fullPath: '/missions/'
+      preLoaderRoute: typeof MissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missions/$missionId': {
+      id: '/missions/$missionId'
+      path: '/missions/$missionId'
+      fullPath: '/missions/$missionId'
+      preLoaderRoute: typeof MissionsMissionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding/entreprise': {
       id: '/onboarding/entreprise'
       path: '/onboarding/entreprise'
@@ -202,8 +282,12 @@ const rootRouteChildren: RootRouteChildren = {
   TarifsRoute: TarifsRoute,
   DashboardEntrepriseRoute: DashboardEntrepriseRoute,
   DashboardFreelanceRoute: DashboardFreelanceRoute,
+  FreelancesFreelanceIdRoute: FreelancesFreelanceIdRoute,
+  MissionsMissionIdRoute: MissionsMissionIdRoute,
   OnboardingEntrepriseRoute: OnboardingEntrepriseRoute,
   OnboardingFreelanceRoute: OnboardingFreelanceRoute,
+  FreelancesIndexRoute: FreelancesIndexRoute,
+  MissionsIndexRoute: MissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
