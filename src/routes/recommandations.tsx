@@ -355,6 +355,14 @@ function Recommandations() {
                   >
                     Publier comme nouvelle mission
                   </button>
+                  {shortlist.ids.length > 0 && (
+                    <Link
+                      to="/shortlist"
+                      className="rounded-xl glass text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+                    >
+                      Comparer la shortlist ({shortlist.ids.length})
+                    </Link>
+                  )}
                   <span className="text-xs text-ink-soft">
                     Le besoin analysé et les profils recommandés sont repris dans la mission.
                   </span>
