@@ -10,12 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ProduitRouteImport } from './routes/produit'
 import { Route as TarifsRouteImport } from './routes/tarifs'
+import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
+import { Route as DashboardFreelanceRouteImport } from './routes/dashboard.freelance'
+import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
+import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProduitRoute = ProduitRouteImport.update({
@@ -28,35 +38,100 @@ const TarifsRoute = TarifsRouteImport.update({
   path: '/tarifs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardEntrepriseRoute = DashboardEntrepriseRouteImport.update({
+  id: '/dashboard/entreprise',
+  path: '/dashboard/entreprise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardFreelanceRoute = DashboardFreelanceRouteImport.update({
+  id: '/dashboard/freelance',
+  path: '/dashboard/freelance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingEntrepriseRoute = OnboardingEntrepriseRouteImport.update({
+  id: '/onboarding/entreprise',
+  path: '/onboarding/entreprise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
+  id: '/onboarding/freelance',
+  path: '/onboarding/freelance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/produit': typeof ProduitRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/produit': typeof ProduitRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/produit': typeof ProduitRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/produit' | '/tarifs'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/produit'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/produit' | '/tarifs'
-  id: '__root__' | '/' | '/produit' | '/tarifs'
+  to:
+    | '/'
+    | '/auth'
+    | '/produit'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/produit'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   ProduitRoute: typeof ProduitRoute
   TarifsRoute: typeof TarifsRoute
+  DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
+  DashboardFreelanceRoute: typeof DashboardFreelanceRoute
+  OnboardingEntrepriseRoute: typeof OnboardingEntrepriseRoute
+  OnboardingFreelanceRoute: typeof OnboardingFreelanceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/produit': {
@@ -82,13 +164,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TarifsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/entreprise': {
+      id: '/dashboard/entreprise'
+      path: '/dashboard/entreprise'
+      fullPath: '/dashboard/entreprise'
+      preLoaderRoute: typeof DashboardEntrepriseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/freelance': {
+      id: '/dashboard/freelance'
+      path: '/dashboard/freelance'
+      fullPath: '/dashboard/freelance'
+      preLoaderRoute: typeof DashboardFreelanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/entreprise': {
+      id: '/onboarding/entreprise'
+      path: '/onboarding/entreprise'
+      fullPath: '/onboarding/entreprise'
+      preLoaderRoute: typeof OnboardingEntrepriseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/freelance': {
+      id: '/onboarding/freelance'
+      path: '/onboarding/freelance'
+      fullPath: '/onboarding/freelance'
+      preLoaderRoute: typeof OnboardingFreelanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   ProduitRoute: ProduitRoute,
   TarifsRoute: TarifsRoute,
+  DashboardEntrepriseRoute: DashboardEntrepriseRoute,
+  DashboardFreelanceRoute: DashboardFreelanceRoute,
+  OnboardingEntrepriseRoute: OnboardingEntrepriseRoute,
+  OnboardingFreelanceRoute: OnboardingFreelanceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
