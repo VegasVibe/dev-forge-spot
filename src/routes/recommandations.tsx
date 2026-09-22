@@ -404,6 +404,63 @@ function Recommandations() {
                             <SkillTag key={s}>{s}</SkillTag>
                           ))}
                         </div>
+
+                        <div className="mt-4 border-t border-border pt-4">
+                          {contactId === f.id ? (
+                            <div className="space-y-2">
+                              <textarea
+                                rows={3}
+                                value={draft}
+                                onChange={(e) => setDraft(e.target.value)}
+                                className={`${field} resize-none`}
+                                placeholder={`Bonjour ${f.name.split(" ")[0]}, nous avons un besoin en ${category.toLowerCase()}…`}
+                              />
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => contact(f.id)}
+                                  disabled={!draft.trim()}
+                                  className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2 px-3.5 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
+                                >
+                                  Envoyer le message
+                                </button>
+                                <button
+                                  onClick={() => setContactId(null)}
+                                  className="rounded-xl glass text-sm py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                                >
+                                  Annuler
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                onClick={() => shortlist.toggle(f.id)}
+                                className={`rounded-xl text-sm font-medium py-2 px-3.5 ring-1 transition-colors ${
+                                  shortlist.has(f.id)
+                                    ? "bg-accent-soft text-accent ring-accent/20"
+                                    : "glass ring-border hover:bg-card"
+                                }`}
+                              >
+                                {shortlist.has(f.id) ? "Dans la shortlist" : "Ajouter à la shortlist"}
+                              </button>
+                              {sentTo.includes(f.id) ? (
+                                <Link to="/messagerie" className="text-sm text-ok">
+                                  Message envoyé · ouvrir la conversation
+                                </Link>
+                              ) : (
+                                <button
+                                  onClick={() => {
+                                    setContactId(f.id);
+                                    setDraft("");
+                                  }}
+                                  className="rounded-xl glass text-sm font-medium py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                                >
+                                  Envoyer un message
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Panel>
