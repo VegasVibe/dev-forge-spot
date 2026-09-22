@@ -10,6 +10,9 @@ import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/p
 import { useSession } from "@/lib/session";
 import { useShortlist } from "@/lib/shortlist";
 import { sendDirectMessage } from "@/lib/direct-messages";
+import { pushNotifications } from "@/lib/notifications-store";
+import { createApplications } from "@/lib/applications";
+import { checkAlerts, deleteCriteria, matchingFreelances, saveCriteria, useAlerts } from "@/lib/alerts";
 
 const allTechs = Array.from(new Set(freelances.flatMap((f) => f.skills))).sort((a, b) => a.localeCompare(b));
 const experienceLevels = [
@@ -171,7 +174,6 @@ function Recommandations() {
       duration: duration.trim() || "À définir",
       status: "todo",
       progress: 0,
-      applicants: 0,
       postedAt: "À l'instant",
       recommended: result.recommandations.map((r) => r.id),
       applicants: result.recommandations.length,
