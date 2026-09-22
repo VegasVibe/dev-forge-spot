@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
@@ -6,6 +6,8 @@ import { AppShell } from "@/components/app-shell";
 import { Avatar, Label, Meter, Panel, SkillTag } from "@/components/ui-kit";
 import { freelances, getFreelance } from "@/lib/mock-data";
 import { recommendFreelances, type MatchResult } from "@/lib/matching.functions";
+import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/published-missions";
+import { useSession } from "@/lib/session";
 
 export const Route = createFileRoute("/recommandations")({
   head: () => ({
@@ -44,6 +46,8 @@ const categories = [
 
 function Recommandations() {
   const run = useServerFn(recommendFreelances);
+  const navigate = useNavigate();
+  const session = useSession();
   const [brief, setBrief] = useState("");
   const [category, setCategory] = useState(categories[0]!);
   const [budget, setBudget] = useState("");
@@ -71,6 +75,39 @@ function Recommandations() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function publish() {
+    if (!result) return;
+    const names = result.recommandations
+      .map((r) => getFreelance(r.id)?.name)
+      .filter(Boolean) as string[];
+    const rawTitle = result.synthese.split(/[.!?]/)[0]?.trim() || category;
+    const title = rawTitle.length > 72 ? `${rawTitle.slice(0, 69)}…` : rawTitle;
+    const id = `${slugify(title)}-${Date.now().toString(36)}`;
+
+    publishMission({
+      id,
+      title,
+      company: session?.name ?? "Votre entreprise",
+      team: "Équipe produit",
+      category: toMissionCategory(category),
+      summary: result.synthese,
+      description: brief.trim(),
+      deliverables: names.length
+        ? [`Profils recommandés par l'analyse : ${names.join(", ")}.`]
+        : ["Périmètre à préciser avec le freelance retenu."],
+      skills: result.competences.slice(0, 6),
+      budget: parseBudget(budget),
+      duration: duration.trim() || "À définir",
+      status: "todo",
+      progress: 0,
+      applicants: 0,
+      postedAt: "À l'instant",
+      recommended: result.recommandations.map((r) => r.id),
+    });
+
+    navigate({ to: "/missions/$missionId", params: { missionId: id } });
   }
 
   return (
@@ -169,6 +206,17 @@ function Recommandations() {
                     ))}
                   </div>
                 )}
+                <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-border pt-4">
+                  <button
+                    onClick={publish}
+                    className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+                  >
+                    Publier comme nouvelle mission
+                  </button>
+                  <span className="text-xs text-ink-soft">
+                    Le besoin analysé et les profils recommandés sont repris dans la mission.
+                  </span>
+                </div>
               </Panel>
 
               {result.recommandations.map((rec, i) => {

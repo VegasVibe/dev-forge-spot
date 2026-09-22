@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { Chip, SkillTag, StatusBadge } from "@/components/ui-kit";
 import { formatEuro, missions, statusLabels, type MissionStatus } from "@/lib/mock-data";
+import { usePublishedMissions } from "@/lib/published-missions";
 
 export const Route = createFileRoute("/missions/")({
   head: () => ({
@@ -27,10 +28,11 @@ function MissionsPage() {
   const [category, setCategory] = useState<(typeof categories)[number]>("Toutes");
   const [status, setStatus] = useState<MissionStatus | "tous">("tous");
   const [minBudget, setMinBudget] = useState(0);
+  const published = usePublishedMissions();
 
   const results = useMemo(
     () =>
-      missions.filter(
+      [...published, ...missions].filter(
         (m) =>
           (category === "Toutes" || m.category === category) &&
           (status === "tous" || m.status === status) &&
@@ -38,7 +40,7 @@ function MissionsPage() {
           (query === "" ||
             `${m.title} ${m.company} ${m.skills.join(" ")}`.toLowerCase().includes(query.toLowerCase())),
       ),
-    [query, category, status, minBudget],
+    [query, category, status, minBudget, published],
   );
 
   return (
