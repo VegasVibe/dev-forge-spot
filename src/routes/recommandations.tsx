@@ -206,6 +206,17 @@ function Recommandations() {
                     ))}
                   </div>
                 )}
+                <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-border pt-4">
+                  <button
+                    onClick={publish}
+                    className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+                  >
+                    Publier comme nouvelle mission
+                  </button>
+                  <span className="text-xs text-ink-soft">
+                    Le besoin analysé et les profils recommandés sont repris dans la mission.
+                  </span>
+                </div>
               </Panel>
 
               {result.recommandations.map((rec, i) => {
