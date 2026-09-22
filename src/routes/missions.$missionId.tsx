@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
-import { Avatar, Label, Meter, SkillTag, StatusBadge } from "@/components/ui-kit";
+import { Avatar, Label, Meter, Panel, SkillTag, StatusBadge } from "@/components/ui-kit";
 import { formatEuro, getFreelance, getMission } from "@/lib/mock-data";
-import { getPublishedMission, type PublishedMission } from "@/lib/published-missions";
+import { updatePublishedMission, usePublishedMission } from "@/lib/published-missions";
+import { useApplications } from "@/lib/applications";
+import { ApplicationCard } from "@/routes/candidatures";
+import { pushNotifications } from "@/lib/notifications-store";
 
 export const Route = createFileRoute("/missions/$missionId")({
   loader: ({ params }) => ({ mission: getMission(params.missionId) ?? null }),
