@@ -7,6 +7,7 @@ const nav = [
   { to: "/dashboard/entreprise", label: "Tableau de bord entreprise" },
   { to: "/dashboard/freelance", label: "Tableau de bord freelance" },
   { to: "/missions", label: "Missions" },
+  { to: "/recommandations", label: "Recommandation IA" },
   { to: "/freelances", label: "Développeurs" },
   { to: "/suivi", label: "Suivi des missions" },
   { to: "/paiements", label: "Paiements" },
