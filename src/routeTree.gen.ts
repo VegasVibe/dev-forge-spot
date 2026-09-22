@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as HistoriqueRouteImport } from './routes/historique'
+import { Route as MessagerieRouteImport } from './routes/messagerie'
+import { Route as PaiementsRouteImport } from './routes/paiements'
+import { Route as ParametresRouteImport } from './routes/parametres'
 import { Route as ProduitRouteImport } from './routes/produit'
+import { Route as SuiviRouteImport } from './routes/suivi'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
 import { Route as DashboardFreelanceRouteImport } from './routes/dashboard.freelance'
@@ -32,9 +37,34 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HistoriqueRoute = HistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagerieRoute = MessagerieRouteImport.update({
+  id: '/messagerie',
+  path: '/messagerie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaiementsRoute = PaiementsRouteImport.update({
+  id: '/paiements',
+  path: '/paiements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParametresRoute = ParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProduitRoute = ProduitRouteImport.update({
   id: '/produit',
   path: '/produit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuiviRoute = SuiviRouteImport.update({
+  id: '/suivi',
+  path: '/suivi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TarifsRoute = TarifsRouteImport.update({
@@ -86,7 +116,12 @@ const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
@@ -100,7 +135,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
@@ -115,7 +155,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
   '/dashboard/freelance': typeof DashboardFreelanceRoute
@@ -131,7 +176,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
     | '/produit'
+    | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
@@ -145,7 +195,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
     | '/produit'
+    | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
@@ -159,7 +214,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
     | '/produit'
+    | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
     | '/dashboard/freelance'
@@ -174,7 +234,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  HistoriqueRoute: typeof HistoriqueRoute
+  MessagerieRoute: typeof MessagerieRoute
+  PaiementsRoute: typeof PaiementsRoute
+  ParametresRoute: typeof ParametresRoute
   ProduitRoute: typeof ProduitRoute
+  SuiviRoute: typeof SuiviRoute
   TarifsRoute: typeof TarifsRoute
   DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
   DashboardFreelanceRoute: typeof DashboardFreelanceRoute
@@ -202,11 +267,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/historique': {
+      id: '/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof HistoriqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messagerie': {
+      id: '/messagerie'
+      path: '/messagerie'
+      fullPath: '/messagerie'
+      preLoaderRoute: typeof MessagerieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paiements': {
+      id: '/paiements'
+      path: '/paiements'
+      fullPath: '/paiements'
+      preLoaderRoute: typeof PaiementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parametres': {
+      id: '/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof ParametresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/produit': {
       id: '/produit'
       path: '/produit'
       fullPath: '/produit'
       preLoaderRoute: typeof ProduitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suivi': {
+      id: '/suivi'
+      path: '/suivi'
+      fullPath: '/suivi'
+      preLoaderRoute: typeof SuiviRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tarifs': {
@@ -278,7 +378,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  HistoriqueRoute: HistoriqueRoute,
+  MessagerieRoute: MessagerieRoute,
+  PaiementsRoute: PaiementsRoute,
+  ParametresRoute: ParametresRoute,
   ProduitRoute: ProduitRoute,
+  SuiviRoute: SuiviRoute,
   TarifsRoute: TarifsRoute,
   DashboardEntrepriseRoute: DashboardEntrepriseRoute,
   DashboardFreelanceRoute: DashboardFreelanceRoute,
