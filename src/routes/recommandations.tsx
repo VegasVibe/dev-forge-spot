@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { AppShell } from "@/components/app-shell";
 import { Avatar, Label, Meter, Panel, SkillTag } from "@/components/ui-kit";
@@ -8,6 +8,16 @@ import { freelances, getFreelance } from "@/lib/mock-data";
 import { recommendFreelances, type MatchResult } from "@/lib/matching.functions";
 import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/published-missions";
 import { useSession } from "@/lib/session";
+import { useShortlist } from "@/lib/shortlist";
+import { sendDirectMessage } from "@/lib/direct-messages";
+
+const allTechs = Array.from(new Set(freelances.flatMap((f) => f.skills))).sort((a, b) => a.localeCompare(b));
+const experienceLevels = [
+  { label: "Toute expérience", value: 0 },
+  { label: "10 missions et +", value: 10 },
+  { label: "20 missions et +", value: 20 },
+  { label: "30 missions et +", value: 30 },
+];
 
 export const Route = createFileRoute("/recommandations")({
   head: () => ({
