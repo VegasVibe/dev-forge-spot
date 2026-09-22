@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { Avatar, Label } from "@/components/ui-kit";
-import { conversations } from "@/lib/mock-data";
+import { conversations as mockConversations } from "@/lib/mock-data";
+import { useDirectThreads } from "@/lib/direct-messages";
 
 export const Route = createFileRoute("/messagerie")({
   head: () => ({
@@ -17,16 +18,31 @@ export const Route = createFileRoute("/messagerie")({
 });
 
 function Messagerie() {
-  const [activeId, setActiveId] = useState(conversations[0]!.id);
+  const [activeId, setActiveId] = useState(mockConversations[0]!.id);
   const [draft, setDraft] = useState("");
   const [sent, setSent] = useState<Record<string, { from: "me"; text: string; time: string }[]>>({});
-  const active = conversations.find((c) => c.id === activeId)!;
-  const thread = [...active.messages, ...(sent[activeId] ?? [])];
+  const direct = useDirectThreads();
+
+  const conversations = [
+    ...direct.map((t) => ({
+      id: `direct-${t.freelanceId}`,
+      name: t.name,
+      initials: t.initials,
+      role: t.role,
+      mission: t.subject,
+      unread: 0,
+      messages: t.messages,
+    })),
+    ...mockConversations,
+  ];
+
+  const active = conversations.find((c) => c.id === activeId) ?? conversations[0]!;
+  const thread = [...active.messages, ...(sent[active.id] ?? [])];
 
   function send(e: React.FormEvent) {
     e.preventDefault();
     if (!draft.trim()) return;
-    setSent((s) => ({ ...s, [activeId]: [...(s[activeId] ?? []), { from: "me", text: draft, time: "à l'instant" }] }));
+    setSent((s) => ({ ...s, [active.id]: [...(s[active.id] ?? []), { from: "me", text: draft, time: "à l'instant" }] }));
     setDraft("");
   }
 
@@ -43,7 +59,7 @@ function Messagerie() {
                 key={c.id}
                 onClick={() => setActiveId(c.id)}
                 className={`w-full flex items-center gap-3 rounded-xl px-2.5 py-2.5 text-left transition-colors ${
-                  c.id === activeId ? "bg-accent-soft ring-1 ring-accent/20" : "hover:bg-card"
+                  c.id === active.id ? "bg-accent-soft ring-1 ring-accent/20" : "hover:bg-card"
                 }`}
               >
                 <Avatar initials={c.initials} size="sm" />

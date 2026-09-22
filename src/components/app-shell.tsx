@@ -9,6 +9,7 @@ const nav = [
   { to: "/missions", label: "Missions" },
   { to: "/recommandations", label: "Recommandation IA" },
   { to: "/freelances", label: "Développeurs" },
+  { to: "/shortlist", label: "Shortlist" },
   { to: "/suivi", label: "Suivi des missions" },
   { to: "/paiements", label: "Paiements" },
   { to: "/messagerie", label: "Messagerie" },

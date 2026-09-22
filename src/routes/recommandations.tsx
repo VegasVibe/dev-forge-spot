@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { AppShell } from "@/components/app-shell";
 import { Avatar, Label, Meter, Panel, SkillTag } from "@/components/ui-kit";
@@ -8,6 +8,16 @@ import { freelances, getFreelance } from "@/lib/mock-data";
 import { recommendFreelances, type MatchResult } from "@/lib/matching.functions";
 import { parseBudget, publishMission, slugify, toMissionCategory } from "@/lib/published-missions";
 import { useSession } from "@/lib/session";
+import { useShortlist } from "@/lib/shortlist";
+import { sendDirectMessage } from "@/lib/direct-messages";
+
+const allTechs = Array.from(new Set(freelances.flatMap((f) => f.skills))).sort((a, b) => a.localeCompare(b));
+const experienceLevels = [
+  { label: "Toute expérience", value: 0 },
+  { label: "10 missions et +", value: 10 },
+  { label: "20 missions et +", value: 20 },
+  { label: "30 missions et +", value: 30 },
+];
 
 export const Route = createFileRoute("/recommandations")({
   head: () => ({
@@ -56,15 +66,74 @@ function Recommandations() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<MatchResult | null>(null);
 
+  const [maxRate, setMaxRate] = useState("");
+  const [availableOnly, setAvailableOnly] = useState(false);
+  const [minMissions, setMinMissions] = useState(0);
+  const [techs, setTechs] = useState<string[]>([]);
+
+  const shortlist = useShortlist();
+  const [contactId, setContactId] = useState<string | null>(null);
+  const [draft, setDraft] = useState("");
+  const [sentTo, setSentTo] = useState<string[]>([]);
+
+  const candidates = useMemo(() => {
+    const rate = Number(maxRate.replace(/\D/g, ""));
+    return freelances.filter((f) => {
+      if (rate && f.rate > rate) return false;
+      if (availableOnly && !f.available) return false;
+      if (f.missions < minMissions) return false;
+      if (techs.length && !techs.every((t) => f.skills.includes(t))) return false;
+      return true;
+    });
+  }, [maxRate, availableOnly, minMissions, techs]);
+
   const tooShort = brief.trim().length < 20;
+  const noCandidate = candidates.length === 0;
+
+  function toggleTech(tech: string) {
+    setTechs((t) => (t.includes(tech) ? t.filter((x) => x !== tech) : [...t, tech]));
+  }
+
+  function resetFilters() {
+    setMaxRate("");
+    setAvailableOnly(false);
+    setMinMissions(0);
+    setTechs([]);
+  }
+
+  function contact(id: string) {
+    const f = getFreelance(id);
+    if (!f || !draft.trim()) return;
+    sendDirectMessage(
+      {
+        freelanceId: f.id,
+        name: f.name,
+        initials: f.initials,
+        role: f.title,
+        subject: category,
+      },
+      draft.trim(),
+    );
+    setSentTo((s) => [...s, id]);
+    setDraft("");
+    setContactId(null);
+  }
 
   async function submit() {
-    if (tooShort || loading) return;
+    if (tooShort || loading || noCandidate) return;
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const res = await run({ data: { brief: brief.trim(), category, budget, duration } });
+      const res = await run({
+        data: {
+          brief: brief.trim(),
+          category,
+          budget,
+          duration,
+          candidateIds: candidates.map((f) => f.id),
+        },
+      });
       setResult(res);
     } catch (e) {
       setError(
@@ -153,15 +222,88 @@ function Recommandations() {
               </div>
               <button
                 onClick={submit}
-                disabled={tooShort || loading}
+                disabled={tooShort || loading || noCandidate}
                 className="w-full rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
               >
                 {loading ? "Analyse en cours…" : "Recommander des freelances"}
               </button>
               <p className="text-xs text-ink-soft">
-                L'analyse compare votre besoin aux {freelances.length} profils de la plateforme : compétences,
-                réalisations, disponibilité et tarif.
+                L'analyse porte sur {candidates.length} profil{candidates.length > 1 ? "s" : ""} sur{" "}
+                {freelances.length} : compétences, réalisations, disponibilité et tarif.
               </p>
+            </div>
+          </Panel>
+
+          <Panel className="mt-4">
+            <div className="flex items-center justify-between gap-3">
+              <Label>Affiner la recherche</Label>
+              <button onClick={resetFilters} className="text-[11px] font-mono text-ink-faint hover:text-accent">
+                Réinitialiser
+              </button>
+            </div>
+
+            <div className="mt-4 space-y-4">
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="label-mono">TJM maximum (€)</label>
+                  <input
+                    value={maxRate}
+                    onChange={(e) => setMaxRate(e.target.value)}
+                    className={`${field} mt-1.5`}
+                    placeholder="600"
+                  />
+                </div>
+                <div>
+                  <label className="label-mono">Expérience</label>
+                  <select
+                    value={minMissions}
+                    onChange={(e) => setMinMissions(Number(e.target.value))}
+                    className={`${field} mt-1.5`}
+                  >
+                    {experienceLevels.map((l) => (
+                      <option key={l.value} value={l.value}>
+                        {l.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2.5 text-sm">
+                <input
+                  type="checkbox"
+                  checked={availableOnly}
+                  onChange={(e) => setAvailableOnly(e.target.checked)}
+                  className="size-4 accent-current text-accent"
+                />
+                Uniquement les profils disponibles
+              </label>
+
+              <div>
+                <label className="label-mono">Technologies recherchées</label>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {allTechs.map((t) => {
+                    const on = techs.includes(t);
+                    return (
+                      <button
+                        key={t}
+                        onClick={() => toggleTech(t)}
+                        className={`text-[10px] font-mono px-2 py-1 rounded transition-colors ${
+                          on ? "bg-accent text-accent-foreground" : "bg-muted text-ink-soft hover:bg-card"
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {noCandidate && (
+                <p className="text-xs text-warn">
+                  Aucun profil ne correspond à ces filtres. Élargissez les critères pour lancer l'analyse.
+                </p>
+              )}
             </div>
           </Panel>
         </div>
@@ -213,6 +355,14 @@ function Recommandations() {
                   >
                     Publier comme nouvelle mission
                   </button>
+                  {shortlist.ids.length > 0 && (
+                    <Link
+                      to="/shortlist"
+                      className="rounded-xl glass text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+                    >
+                      Comparer la shortlist ({shortlist.ids.length})
+                    </Link>
+                  )}
                   <span className="text-xs text-ink-soft">
                     Le besoin analysé et les profils recommandés sont repris dans la mission.
                   </span>
@@ -261,6 +411,63 @@ function Recommandations() {
                           {f.skills.map((s) => (
                             <SkillTag key={s}>{s}</SkillTag>
                           ))}
+                        </div>
+
+                        <div className="mt-4 border-t border-border pt-4">
+                          {contactId === f.id ? (
+                            <div className="space-y-2">
+                              <textarea
+                                rows={3}
+                                value={draft}
+                                onChange={(e) => setDraft(e.target.value)}
+                                className={`${field} resize-none`}
+                                placeholder={`Bonjour ${f.name.split(" ")[0]}, nous avons un besoin en ${category.toLowerCase()}…`}
+                              />
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => contact(f.id)}
+                                  disabled={!draft.trim()}
+                                  className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2 px-3.5 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
+                                >
+                                  Envoyer le message
+                                </button>
+                                <button
+                                  onClick={() => setContactId(null)}
+                                  className="rounded-xl glass text-sm py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                                >
+                                  Annuler
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                onClick={() => shortlist.toggle(f.id)}
+                                className={`rounded-xl text-sm font-medium py-2 px-3.5 ring-1 transition-colors ${
+                                  shortlist.has(f.id)
+                                    ? "bg-accent-soft text-accent ring-accent/20"
+                                    : "glass ring-border hover:bg-card"
+                                }`}
+                              >
+                                {shortlist.has(f.id) ? "Dans la shortlist" : "Ajouter à la shortlist"}
+                              </button>
+                              {sentTo.includes(f.id) ? (
+                                <Link to="/messagerie" className="text-sm text-ok">
+                                  Message envoyé · ouvrir la conversation
+                                </Link>
+                              ) : (
+                                <button
+                                  onClick={() => {
+                                    setContactId(f.id);
+                                    setDraft("");
+                                  }}
+                                  className="rounded-xl glass text-sm font-medium py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                                >
+                                  Envoyer un message
+                                </button>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

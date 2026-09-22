@@ -17,6 +17,7 @@ import { Route as PaiementsRouteImport } from './routes/paiements'
 import { Route as ParametresRouteImport } from './routes/parametres'
 import { Route as ProduitRouteImport } from './routes/produit'
 import { Route as RecommandationsRouteImport } from './routes/recommandations'
+import { Route as ShortlistRouteImport } from './routes/shortlist'
 import { Route as SuiviRouteImport } from './routes/suivi'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
@@ -66,6 +67,11 @@ const ProduitRoute = ProduitRouteImport.update({
 const RecommandationsRoute = RecommandationsRouteImport.update({
   id: '/recommandations',
   path: '/recommandations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShortlistRoute = ShortlistRouteImport.update({
+  id: '/shortlist',
+  path: '/shortlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuiviRoute = SuiviRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
   '/recommandations': typeof RecommandationsRoute
+  '/shortlist': typeof ShortlistRoute
   '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
   '/recommandations': typeof RecommandationsRoute
+  '/shortlist': typeof ShortlistRoute
   '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
   '/recommandations': typeof RecommandationsRoute
+  '/shortlist': typeof ShortlistRoute
   '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
   '/dashboard/entreprise': typeof DashboardEntrepriseRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/parametres'
     | '/produit'
     | '/recommandations'
+    | '/shortlist'
     | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/parametres'
     | '/produit'
     | '/recommandations'
+    | '/shortlist'
     | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/parametres'
     | '/produit'
     | '/recommandations'
+    | '/shortlist'
     | '/suivi'
     | '/tarifs'
     | '/dashboard/entreprise'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   ParametresRoute: typeof ParametresRoute
   ProduitRoute: typeof ProduitRoute
   RecommandationsRoute: typeof RecommandationsRoute
+  ShortlistRoute: typeof ShortlistRoute
   SuiviRoute: typeof SuiviRoute
   TarifsRoute: typeof TarifsRoute
   DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/recommandations'
       fullPath: '/recommandations'
       preLoaderRoute: typeof RecommandationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shortlist': {
+      id: '/shortlist'
+      path: '/shortlist'
+      fullPath: '/shortlist'
+      preLoaderRoute: typeof ShortlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/suivi': {
@@ -404,6 +424,7 @@ const rootRouteChildren: RootRouteChildren = {
   ParametresRoute: ParametresRoute,
   ProduitRoute: ProduitRoute,
   RecommandationsRoute: RecommandationsRoute,
+  ShortlistRoute: ShortlistRoute,
   SuiviRoute: SuiviRoute,
   TarifsRoute: TarifsRoute,
   DashboardEntrepriseRoute: DashboardEntrepriseRoute,

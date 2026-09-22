@@ -11,6 +11,7 @@ const BriefInput = z.object({
   category: z.string(),
   budget: z.string(),
   duration: z.string(),
+  candidateIds: z.array(z.string()).nullable().default(null),
 });
 
 const MatchSchema = z.object({
@@ -42,7 +43,11 @@ export const recommendFreelances = createServerFn({ method: "POST" })
       fetch: runIdFetch.fetch,
     });
 
-    const roster = freelances.map((f) => ({
+    const pool = data.candidateIds?.length
+      ? freelances.filter((f) => data.candidateIds!.includes(f.id))
+      : freelances;
+
+    const roster = pool.map((f) => ({
       id: f.id,
       nom: f.name,
       titre: f.title,
