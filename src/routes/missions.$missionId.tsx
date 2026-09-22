@@ -1,17 +1,14 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { Avatar, Label, Meter, SkillTag, StatusBadge } from "@/components/ui-kit";
 import { formatEuro, getFreelance, getMission } from "@/lib/mock-data";
+import { getPublishedMission, type PublishedMission } from "@/lib/published-missions";
 
 export const Route = createFileRoute("/missions/$missionId")({
-  loader: ({ params }) => {
-    const mission = getMission(params.missionId);
-    if (!mission) throw notFound();
-    return { mission };
-  },
+  loader: ({ params }) => ({ mission: getMission(params.missionId) ?? null }),
   head: ({ loaderData }) => {
-    if (!loaderData) {
+    if (!loaderData?.mission) {
       return { meta: [{ title: "Mission introuvable — Nodale" }, { name: "robots", content: "noindex" }] };
     }
     const { mission } = loaderData;
