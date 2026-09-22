@@ -148,9 +148,71 @@ function MissionDetail() {
     >
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="xl:col-span-2 space-y-4">
+          {editing && (
+            <Panel>
+              <Label>Modifier la mission</Label>
+              <div className="mt-4 space-y-3">
+                <div>
+                  <label className="label-mono">Titre</label>
+                  <input
+                    value={form.title}
+                    onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+                    className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+                <div>
+                  <label className="label-mono">Résumé</label>
+                  <textarea
+                    rows={3}
+                    value={form.summary}
+                    onChange={(e) => setForm((f) => ({ ...f, summary: e.target.value }))}
+                    className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring resize-none"
+                  />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="label-mono">Budget (€)</label>
+                    <input
+                      value={form.budget}
+                      onChange={(e) => setForm((f) => ({ ...f, budget: e.target.value }))}
+                      className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <div>
+                    <label className="label-mono">Durée</label>
+                    <input
+                      value={form.duration}
+                      onChange={(e) => setForm((f) => ({ ...f, duration: e.target.value }))}
+                      className="mt-1.5 w-full rounded-xl bg-card ring-1 ring-border px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={saveEdit}
+                    className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2 px-3.5 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
+                  >
+                    Enregistrer
+                  </button>
+                  <button
+                    onClick={() => setEditing(false)}
+                    className="rounded-xl glass text-sm py-2 px-3.5 ring-1 ring-border hover:bg-card transition-colors"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            </Panel>
+          )}
+
           <div className="glass rounded-2xl ring-1 ring-border p-5">
             <div className="flex flex-wrap items-center gap-3">
               <StatusBadge status={mission.status} />
+              {local?.paused && (
+                <span className="inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ring-1 bg-arch-soft text-arch ring-border">
+                  En pause
+                </span>
+              )}
               <span className="label-mono">Publiée le {mission.postedAt}</span>
               <span className="label-mono">{mission.applicants} candidatures</span>
             </div>
