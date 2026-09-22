@@ -10,33 +10,245 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as HistoriqueRouteImport } from './routes/historique'
+import { Route as MessagerieRouteImport } from './routes/messagerie'
+import { Route as PaiementsRouteImport } from './routes/paiements'
+import { Route as ParametresRouteImport } from './routes/parametres'
+import { Route as ProduitRouteImport } from './routes/produit'
+import { Route as SuiviRouteImport } from './routes/suivi'
+import { Route as TarifsRouteImport } from './routes/tarifs'
+import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
+import { Route as DashboardFreelanceRouteImport } from './routes/dashboard.freelance'
+import { Route as FreelancesIndexRouteImport } from './routes/freelances.index'
+import { Route as FreelancesFreelanceIdRouteImport } from './routes/freelances.$freelanceId'
+import { Route as MissionsIndexRouteImport } from './routes/missions.index'
+import { Route as MissionsMissionIdRouteImport } from './routes/missions.$missionId'
+import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
+import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoriqueRoute = HistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagerieRoute = MessagerieRouteImport.update({
+  id: '/messagerie',
+  path: '/messagerie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaiementsRoute = PaiementsRouteImport.update({
+  id: '/paiements',
+  path: '/paiements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParametresRoute = ParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProduitRoute = ProduitRouteImport.update({
+  id: '/produit',
+  path: '/produit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuiviRoute = SuiviRouteImport.update({
+  id: '/suivi',
+  path: '/suivi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TarifsRoute = TarifsRouteImport.update({
+  id: '/tarifs',
+  path: '/tarifs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardEntrepriseRoute = DashboardEntrepriseRouteImport.update({
+  id: '/dashboard/entreprise',
+  path: '/dashboard/entreprise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardFreelanceRoute = DashboardFreelanceRouteImport.update({
+  id: '/dashboard/freelance',
+  path: '/dashboard/freelance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreelancesIndexRoute = FreelancesIndexRouteImport.update({
+  id: '/freelances/',
+  path: '/freelances/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreelancesFreelanceIdRoute = FreelancesFreelanceIdRouteImport.update({
+  id: '/freelances/$freelanceId',
+  path: '/freelances/$freelanceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionsIndexRoute = MissionsIndexRouteImport.update({
+  id: '/missions/',
+  path: '/missions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionsMissionIdRoute = MissionsMissionIdRouteImport.update({
+  id: '/missions/$missionId',
+  path: '/missions/$missionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingEntrepriseRoute = OnboardingEntrepriseRouteImport.update({
+  id: '/onboarding/entreprise',
+  path: '/onboarding/entreprise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
+  id: '/onboarding/freelance',
+  path: '/onboarding/freelance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
+  '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
+  '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances/': typeof FreelancesIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
+  '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
+  '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances': typeof FreelancesIndexRoute
+  '/missions': typeof MissionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/historique': typeof HistoriqueRoute
+  '/messagerie': typeof MessagerieRoute
+  '/paiements': typeof PaiementsRoute
+  '/parametres': typeof ParametresRoute
+  '/produit': typeof ProduitRoute
+  '/suivi': typeof SuiviRoute
+  '/tarifs': typeof TarifsRoute
+  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
+  '/dashboard/freelance': typeof DashboardFreelanceRoute
+  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
+  '/missions/$missionId': typeof MissionsMissionIdRoute
+  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
+  '/onboarding/freelance': typeof OnboardingFreelanceRoute
+  '/freelances/': typeof FreelancesIndexRoute
+  '/missions/': typeof MissionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
+    | '/produit'
+    | '/suivi'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
+    | '/freelances/'
+    | '/missions/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
+    | '/produit'
+    | '/suivi'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
+    | '/freelances'
+    | '/missions'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/historique'
+    | '/messagerie'
+    | '/paiements'
+    | '/parametres'
+    | '/produit'
+    | '/suivi'
+    | '/tarifs'
+    | '/dashboard/entreprise'
+    | '/dashboard/freelance'
+    | '/freelances/$freelanceId'
+    | '/missions/$missionId'
+    | '/onboarding/entreprise'
+    | '/onboarding/freelance'
+    | '/freelances/'
+    | '/missions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  HistoriqueRoute: typeof HistoriqueRoute
+  MessagerieRoute: typeof MessagerieRoute
+  PaiementsRoute: typeof PaiementsRoute
+  ParametresRoute: typeof ParametresRoute
+  ProduitRoute: typeof ProduitRoute
+  SuiviRoute: typeof SuiviRoute
+  TarifsRoute: typeof TarifsRoute
+  DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
+  DashboardFreelanceRoute: typeof DashboardFreelanceRoute
+  FreelancesFreelanceIdRoute: typeof FreelancesFreelanceIdRoute
+  MissionsMissionIdRoute: typeof MissionsMissionIdRoute
+  OnboardingEntrepriseRoute: typeof OnboardingEntrepriseRoute
+  OnboardingFreelanceRoute: typeof OnboardingFreelanceRoute
+  FreelancesIndexRoute: typeof FreelancesIndexRoute
+  MissionsIndexRoute: typeof MissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +260,139 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historique': {
+      id: '/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof HistoriqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messagerie': {
+      id: '/messagerie'
+      path: '/messagerie'
+      fullPath: '/messagerie'
+      preLoaderRoute: typeof MessagerieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paiements': {
+      id: '/paiements'
+      path: '/paiements'
+      fullPath: '/paiements'
+      preLoaderRoute: typeof PaiementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parametres': {
+      id: '/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof ParametresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/produit': {
+      id: '/produit'
+      path: '/produit'
+      fullPath: '/produit'
+      preLoaderRoute: typeof ProduitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suivi': {
+      id: '/suivi'
+      path: '/suivi'
+      fullPath: '/suivi'
+      preLoaderRoute: typeof SuiviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarifs': {
+      id: '/tarifs'
+      path: '/tarifs'
+      fullPath: '/tarifs'
+      preLoaderRoute: typeof TarifsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/entreprise': {
+      id: '/dashboard/entreprise'
+      path: '/dashboard/entreprise'
+      fullPath: '/dashboard/entreprise'
+      preLoaderRoute: typeof DashboardEntrepriseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/freelance': {
+      id: '/dashboard/freelance'
+      path: '/dashboard/freelance'
+      fullPath: '/dashboard/freelance'
+      preLoaderRoute: typeof DashboardFreelanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freelances/': {
+      id: '/freelances/'
+      path: '/freelances'
+      fullPath: '/freelances/'
+      preLoaderRoute: typeof FreelancesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freelances/$freelanceId': {
+      id: '/freelances/$freelanceId'
+      path: '/freelances/$freelanceId'
+      fullPath: '/freelances/$freelanceId'
+      preLoaderRoute: typeof FreelancesFreelanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missions/': {
+      id: '/missions/'
+      path: '/missions'
+      fullPath: '/missions/'
+      preLoaderRoute: typeof MissionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missions/$missionId': {
+      id: '/missions/$missionId'
+      path: '/missions/$missionId'
+      fullPath: '/missions/$missionId'
+      preLoaderRoute: typeof MissionsMissionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/entreprise': {
+      id: '/onboarding/entreprise'
+      path: '/onboarding/entreprise'
+      fullPath: '/onboarding/entreprise'
+      preLoaderRoute: typeof OnboardingEntrepriseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/freelance': {
+      id: '/onboarding/freelance'
+      path: '/onboarding/freelance'
+      fullPath: '/onboarding/freelance'
+      preLoaderRoute: typeof OnboardingFreelanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  HistoriqueRoute: HistoriqueRoute,
+  MessagerieRoute: MessagerieRoute,
+  PaiementsRoute: PaiementsRoute,
+  ParametresRoute: ParametresRoute,
+  ProduitRoute: ProduitRoute,
+  SuiviRoute: SuiviRoute,
+  TarifsRoute: TarifsRoute,
+  DashboardEntrepriseRoute: DashboardEntrepriseRoute,
+  DashboardFreelanceRoute: DashboardFreelanceRoute,
+  FreelancesFreelanceIdRoute: FreelancesFreelanceIdRoute,
+  MissionsMissionIdRoute: MissionsMissionIdRoute,
+  OnboardingEntrepriseRoute: OnboardingEntrepriseRoute,
+  OnboardingFreelanceRoute: OnboardingFreelanceRoute,
+  FreelancesIndexRoute: FreelancesIndexRoute,
+  MissionsIndexRoute: MissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
