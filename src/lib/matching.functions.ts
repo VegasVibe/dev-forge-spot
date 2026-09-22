@@ -43,7 +43,11 @@ export const recommendFreelances = createServerFn({ method: "POST" })
       fetch: runIdFetch.fetch,
     });
 
-    const roster = freelances.map((f) => ({
+    const pool = data.candidateIds?.length
+      ? freelances.filter((f) => data.candidateIds!.includes(f.id))
+      : freelances;
+
+    const roster = pool.map((f) => ({
       id: f.id,
       nom: f.name,
       titre: f.title,
