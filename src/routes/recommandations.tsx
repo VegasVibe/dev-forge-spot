@@ -66,15 +66,74 @@ function Recommandations() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<MatchResult | null>(null);
 
+  const [maxRate, setMaxRate] = useState("");
+  const [availableOnly, setAvailableOnly] = useState(false);
+  const [minMissions, setMinMissions] = useState(0);
+  const [techs, setTechs] = useState<string[]>([]);
+
+  const shortlist = useShortlist();
+  const [contactId, setContactId] = useState<string | null>(null);
+  const [draft, setDraft] = useState("");
+  const [sentTo, setSentTo] = useState<string[]>([]);
+
+  const candidates = useMemo(() => {
+    const rate = Number(maxRate.replace(/\D/g, ""));
+    return freelances.filter((f) => {
+      if (rate && f.rate > rate) return false;
+      if (availableOnly && !f.available) return false;
+      if (f.missions < minMissions) return false;
+      if (techs.length && !techs.every((t) => f.skills.includes(t))) return false;
+      return true;
+    });
+  }, [maxRate, availableOnly, minMissions, techs]);
+
   const tooShort = brief.trim().length < 20;
+  const noCandidate = candidates.length === 0;
+
+  function toggleTech(tech: string) {
+    setTechs((t) => (t.includes(tech) ? t.filter((x) => x !== tech) : [...t, tech]));
+  }
+
+  function resetFilters() {
+    setMaxRate("");
+    setAvailableOnly(false);
+    setMinMissions(0);
+    setTechs([]);
+  }
+
+  function contact(id: string) {
+    const f = getFreelance(id);
+    if (!f || !draft.trim()) return;
+    sendDirectMessage(
+      {
+        freelanceId: f.id,
+        name: f.name,
+        initials: f.initials,
+        role: f.title,
+        subject: category,
+      },
+      draft.trim(),
+    );
+    setSentTo((s) => [...s, id]);
+    setDraft("");
+    setContactId(null);
+  }
 
   async function submit() {
-    if (tooShort || loading) return;
+    if (tooShort || loading || noCandidate) return;
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const res = await run({ data: { brief: brief.trim(), category, budget, duration } });
+      const res = await run({
+        data: {
+          brief: brief.trim(),
+          category,
+          budget,
+          duration,
+          candidateIds: candidates.map((f) => f.id),
+        },
+      });
       setResult(res);
     } catch (e) {
       setError(
