@@ -77,6 +77,39 @@ function Recommandations() {
     }
   }
 
+  function publish() {
+    if (!result) return;
+    const names = result.recommandations
+      .map((r) => getFreelance(r.id)?.name)
+      .filter(Boolean) as string[];
+    const rawTitle = result.synthese.split(/[.!?]/)[0]?.trim() || category;
+    const title = rawTitle.length > 72 ? `${rawTitle.slice(0, 69)}…` : rawTitle;
+    const id = `${slugify(title)}-${Date.now().toString(36)}`;
+
+    publishMission({
+      id,
+      title,
+      company: session?.name ?? "Votre entreprise",
+      team: "Équipe produit",
+      category: toMissionCategory(category),
+      summary: result.synthese,
+      description: brief.trim(),
+      deliverables: names.length
+        ? [`Profils recommandés par l'analyse : ${names.join(", ")}.`]
+        : ["Périmètre à préciser avec le freelance retenu."],
+      skills: result.competences.slice(0, 6),
+      budget: parseBudget(budget),
+      duration: duration.trim() || "À définir",
+      status: "todo",
+      progress: 0,
+      applicants: 0,
+      postedAt: "À l'instant",
+      recommended: result.recommandations.map((r) => r.id),
+    });
+
+    navigate({ to: "/missions/$missionId", params: { missionId: id } });
+  }
+
   return (
     <AppShell
       kicker="Moteur de matching"
