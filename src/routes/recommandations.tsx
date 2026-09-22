@@ -222,15 +222,88 @@ function Recommandations() {
               </div>
               <button
                 onClick={submit}
-                disabled={tooShort || loading}
+                disabled={tooShort || loading || noCandidate}
                 className="w-full rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors disabled:opacity-40"
               >
                 {loading ? "Analyse en cours…" : "Recommander des freelances"}
               </button>
               <p className="text-xs text-ink-soft">
-                L'analyse compare votre besoin aux {freelances.length} profils de la plateforme : compétences,
-                réalisations, disponibilité et tarif.
+                L'analyse porte sur {candidates.length} profil{candidates.length > 1 ? "s" : ""} sur{" "}
+                {freelances.length} : compétences, réalisations, disponibilité et tarif.
               </p>
+            </div>
+          </Panel>
+
+          <Panel className="mt-4">
+            <div className="flex items-center justify-between gap-3">
+              <Label>Affiner la recherche</Label>
+              <button onClick={resetFilters} className="text-[11px] font-mono text-ink-faint hover:text-accent">
+                Réinitialiser
+              </button>
+            </div>
+
+            <div className="mt-4 space-y-4">
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="label-mono">TJM maximum (€)</label>
+                  <input
+                    value={maxRate}
+                    onChange={(e) => setMaxRate(e.target.value)}
+                    className={`${field} mt-1.5`}
+                    placeholder="600"
+                  />
+                </div>
+                <div>
+                  <label className="label-mono">Expérience</label>
+                  <select
+                    value={minMissions}
+                    onChange={(e) => setMinMissions(Number(e.target.value))}
+                    className={`${field} mt-1.5`}
+                  >
+                    {experienceLevels.map((l) => (
+                      <option key={l.value} value={l.value}>
+                        {l.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2.5 text-sm">
+                <input
+                  type="checkbox"
+                  checked={availableOnly}
+                  onChange={(e) => setAvailableOnly(e.target.checked)}
+                  className="size-4 accent-current text-accent"
+                />
+                Uniquement les profils disponibles
+              </label>
+
+              <div>
+                <label className="label-mono">Technologies recherchées</label>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {allTechs.map((t) => {
+                    const on = techs.includes(t);
+                    return (
+                      <button
+                        key={t}
+                        onClick={() => toggleTech(t)}
+                        className={`text-[10px] font-mono px-2 py-1 rounded transition-colors ${
+                          on ? "bg-accent text-accent-foreground" : "bg-muted text-ink-soft hover:bg-card"
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {noCandidate && (
+                <p className="text-xs text-warn">
+                  Aucun profil ne correspond à ces filtres. Élargissez les critères pour lancer l'analyse.
+                </p>
+              )}
             </div>
           </Panel>
         </div>
