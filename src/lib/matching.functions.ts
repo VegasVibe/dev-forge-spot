@@ -2,9 +2,10 @@ import { createServerFn } from "@tanstack/react-start";
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText, Output } from "ai";
 import { z } from "zod";
+import { createClient } from "@supabase/supabase-js";
 
 import { createLovableAiGatewayRunIdFetch } from "./ai-gateway.server";
-import { freelances } from "./mock-data";
+
 
 const BriefInput = z.object({
   brief: z.string().min(20),
