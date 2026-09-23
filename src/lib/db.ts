@@ -444,7 +444,7 @@ export function useNotifications(userId?: string | null) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("notifications")
-        .select("id, title, detail, kind, read, created_at")
+        .select("id, title, detail, kind, read, created_at, entity_type, entity_id, link")
         .order("created_at", { ascending: false })
         .limit(40);
       if (error) throw error;
@@ -459,6 +459,9 @@ export async function pushNotification(input: {
   title: string;
   detail: string;
   kind: string;
+  entityType?: "mission" | "message" | "candidature" | null;
+  entityId?: string | null;
+  link?: string | null;
 }) {
   await supabase.from("notifications").insert({
     user_id: input.userId ?? null,
@@ -466,6 +469,45 @@ export async function pushNotification(input: {
     title: input.title,
     detail: input.detail,
     kind: input.kind,
+    entity_type: input.entityType ?? null,
+    entity_id: input.entityId ?? null,
+    link: input.link ?? null,
+  });
+}
+
+/* ============ PRÉFÉRENCES DE NOTIFICATION ============ */
+
+export function useNotificationPreferences(userId?: string | null) {
+  return useQuery({
+    queryKey: ["notification-preferences", userId],
+    enabled: Boolean(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("notification_preferences")
+        .select("*")
+        .eq("user_id", userId!)
+        .maybeSingle();
+      if (error) throw error;
+      return {
+        user_id: userId!,
+        ...defaultNotificationPreferences,
+        ...((data ?? {}) as Partial<NotificationPreferences>),
+      } as NotificationPreferences;
+    },
+  });
+}
+
+export function useSaveNotificationPreferences(userId?: string | null) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (patch: Partial<Omit<NotificationPreferences, "user_id">>) => {
+      if (!userId) return;
+      const { error } = await supabase
+        .from("notification_preferences")
+        .upsert({ user_id: userId, ...patch, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["notification-preferences", userId] }),
   });
 }
 
