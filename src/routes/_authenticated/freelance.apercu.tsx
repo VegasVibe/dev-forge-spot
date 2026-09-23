@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/freelance/apercu")({
       { property: "og:description", content: "Le rendu exact de votre profil côté entreprise." },
     ],
   }),
-  component: FreelanceApercu;
+  component: FreelanceApercu,
 });
 
 function FreelanceApercu() {
