@@ -1,9 +1,8 @@
-# Nodale — deux espaces distincts
+# Nodale — feuille de route
 
-- [x] Base de données Lovable Cloud (profils, missions, candidatures, messages, entretiens, paiements, shortlist, notifications, alertes) + données de démonstration
-- [x] Authentification : e-mail/mot de passe, Google, Apple ; choix du rôle à l'inscription ; redirection automatique
-- [x] Coquilles séparées : espace entreprise et espace développeur (navigations différentes)
-- [ ] Pages espace entreprise (sous-agent)
-- [ ] Pages espace développeur (sous-agent)
-- [ ] Suppression des anciennes pages et des modules localStorage
-- [ ] Vérification build + parcours Playwright (inscription, redirection, séparation des rôles)
+- [x] Base de données + authentification (e-mail/mot de passe, Google, Apple)
+- [x] Séparation des rôles (entreprise / freelance) et redirection automatique
+- [x] Espace entreprise complet (dashboard, missions, recommandation IA, développeurs, shortlist, candidatures, entretiens, dépenses, historique, messagerie, paramètres)
+- [x] Espace développeur complet (dashboard, missions, candidatures, suivi, revenus, profil & portfolio, messagerie, paramètres)
+- [x] Suppression des anciennes pages et des données stockées dans le navigateur
+- [x] Vérification technique + parcours de test
