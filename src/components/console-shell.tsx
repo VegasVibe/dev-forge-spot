@@ -129,6 +129,13 @@ function ConsoleShell({
                         ))}
                       </ul>
                     )}
+                    <Link
+                      to={(role === "entreprise" ? "/entreprise/notifications" : "/freelance/notifications") as never}
+                      onClick={() => setOpenBell(false)}
+                      className="mt-2 block rounded-xl bg-card ring-1 ring-border px-2.5 py-2 text-xs text-center hover:bg-muted transition-colors"
+                    >
+                      Ouvrir le centre de notifications
+                    </Link>
                   </div>
                 )}
               </div>
