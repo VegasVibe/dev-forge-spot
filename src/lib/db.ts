@@ -25,6 +25,7 @@ export type FreelanceRow = {
   missions_count: number;
   experience_years: number;
   onboarded: boolean;
+  visible: boolean;
   skills: string[];
   bio: string;
   portfolio: { title: string; client: string; year: string; result: string }[];
@@ -119,12 +120,44 @@ export type NotificationRow = {
   created_at: string;
 };
 
+export type AlertCriteria = {
+  /** Alertes entreprise (profils) */
+  maxRate?: number;
+  availableOnly?: boolean;
+  minMissions?: number;
+  techs?: string[];
+  /** Alertes développeur (missions) */
+  scope?: "mission" | "freelance";
+  minBudget?: number;
+  categories?: string[];
+  onlyIfAvailable?: boolean;
+};
+
 export type AlertRow = {
   id: string;
   label: string;
-  criteria: { maxRate?: number; availableOnly?: boolean; minMissions?: number; techs?: string[] };
+  criteria: AlertCriteria;
   known_ids: string[];
 };
+
+/** Une mission correspond-elle aux critères d'alerte d'un développeur ? */
+export function missionMatchesAlert(
+  mission: MissionRow,
+  criteria: AlertCriteria,
+  profile?: { skills?: string[]; rate?: number; available?: boolean } | null,
+) {
+  if (mission.paused || mission.status === "archived" || mission.status === "paid") return false;
+  if (criteria.onlyIfAvailable && profile && profile.available === false) return false;
+  if (criteria.minBudget && mission.budget < criteria.minBudget) return false;
+  if (criteria.categories?.length && !criteria.categories.includes(mission.category)) return false;
+
+  const techs = (criteria.techs ?? []).map((t) => t.toLowerCase());
+  if (techs.length) {
+    const haystack = [...(mission.skills ?? []), mission.title, mission.summary].join(" ").toLowerCase();
+    if (!techs.some((t) => haystack.includes(t))) return false;
+  }
+  return true;
+}
 
 export function formatEuro(value: number) {
   return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);

@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ProfileVisibilityCard } from "@/components/profile-visibility";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -104,7 +105,21 @@ function FreelanceProfil() {
   }
 
   return (
-    <FreelanceShell kicker="Profil public" title="Mon profil & portfolio">
+    <FreelanceShell
+      kicker="Profil public"
+      title="Mon profil & portfolio"
+      actions={
+        <Link
+          to={"/freelance/apercu" as never}
+          className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
+        >
+          Voir l'aperçu public
+        </Link>
+      }
+    >
+      <div className="mb-4">
+        <ProfileVisibilityCard />
+      </div>
       <form onSubmit={handleSave} className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <div className="glass rounded-2xl ring-1 ring-border p-5 space-y-3">
           <h2 className="font-display font-semibold text-base tracking-tight">Informations générales</h2>
