@@ -69,6 +69,18 @@ function FreelanceDashboard() {
         </>
       }
     >
+      {profile && !profile.onboarded && (
+        <div className="mb-4 glass rounded-2xl ring-1 ring-accent/25 p-5 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <Label>Profil à configurer</Label>
+            <p className="mt-1 text-sm text-ink-soft">
+              Renseignez vos compétences, votre tarif, votre disponibilité, votre expérience et vos réalisations pour apparaître auprès des entreprises.
+            </p>
+          </div>
+          <PrimaryButton to="/freelance/onboarding">Configurer mon profil</PrimaryButton>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard label="Missions en cours" value={String(activeMissions.length)} hint={`${pendingApplications.length} candidature(s) en attente`} tone="info" />
         <StatCard label="Revenus encaissés" value={formatEuro(paid)} tone="ok" />
