@@ -77,10 +77,12 @@ export type Database = {
           bio: string
           city: string
           created_at: string
+          experience_years: number
           id: string
           initials: string
           missions_count: number
           name: string
+          onboarded: boolean
           portfolio: Json
           rate: number
           rating: number
@@ -95,10 +97,12 @@ export type Database = {
           bio?: string
           city?: string
           created_at?: string
+          experience_years?: number
           id: string
           initials?: string
           missions_count?: number
           name: string
+          onboarded?: boolean
           portfolio?: Json
           rate?: number
           rating?: number
@@ -113,10 +117,12 @@ export type Database = {
           bio?: string
           city?: string
           created_at?: string
+          experience_years?: number
           id?: string
           initials?: string
           missions_count?: number
           name?: string
+          onboarded?: boolean
           portfolio?: Json
           rate?: number
           rating?: number
