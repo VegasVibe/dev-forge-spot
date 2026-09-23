@@ -15,6 +15,13 @@
       "when": 1790159973523,
       "tag": "0001_freelance_onboarding_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790160346907,
+      "tag": "0002_freelance_profile_visibility",
+      "breakpoints": true
     }
   ]
 }

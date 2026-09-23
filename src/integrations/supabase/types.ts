@@ -91,6 +91,7 @@ export type Database = {
           testimonials: Json
           title: string
           user_id: string | null
+          visible: boolean
         }
         Insert: {
           available?: boolean
@@ -111,6 +112,7 @@ export type Database = {
           testimonials?: Json
           title?: string
           user_id?: string | null
+          visible?: boolean
         }
         Update: {
           available?: boolean
@@ -131,6 +133,7 @@ export type Database = {
           testimonials?: Json
           title?: string
           user_id?: string | null
+          visible?: boolean
         }
         Relationships: []
       }
