@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { CompanyShell } from "@/components/console-shell";
 import { Label, Panel } from "@/components/ui-kit";
+import { AccountTypeCard } from "@/components/account-type";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe, useSignOut } from "@/lib/auth";
 
@@ -79,11 +80,12 @@ function ParametresPage() {
           </form>
         </Panel>
 
+        <AccountTypeCard />
+
         <Panel>
           <Label>Session</Label>
           <p className="mt-3 text-sm text-ink-soft max-w-[48ch]">
-            Votre compte est de type entreprise : vous accédez uniquement à l'espace entreprise. Pour un compte
-            développeur, créez un compte séparé.
+            Votre compte est de type entreprise : vous accédez uniquement à l'espace entreprise.
           </p>
           <button
             onClick={() => void signOut()}

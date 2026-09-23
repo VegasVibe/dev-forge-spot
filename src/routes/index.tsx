@@ -50,7 +50,10 @@ function useSessionRedirect() {
           email: user.email ?? null,
         });
       } else if (pending && pending !== profile.role) {
-        role = profile.role as Role;
+        // Le compte vient d'être créé côté base avec un rôle par défaut :
+        // on applique le choix fait sur l'écran de connexion.
+        const { error: roleError } = await supabase.from("profiles").update({ role: pending }).eq("id", user.id);
+        role = roleError ? (profile.role as Role) : pending;
       }
 
       window.localStorage.removeItem(PENDING_ROLE_KEY);

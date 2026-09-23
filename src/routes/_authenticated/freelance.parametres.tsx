@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { FreelanceShell } from "@/components/console-shell";
 import { Label } from "@/components/ui-kit";
+import { AccountTypeCard } from "@/components/account-type";
 import { useMe, useSignOut } from "@/lib/auth";
 
 export const Route = createFileRoute("/_authenticated/freelance/parametres")({
@@ -72,6 +73,8 @@ function FreelanceParametres() {
             ))}
           </div>
         </div>
+
+        <AccountTypeCard />
 
         <div className="glass rounded-2xl ring-1 ring-border p-5">
           <h2 className="font-display font-semibold text-base tracking-tight">Session</h2>
