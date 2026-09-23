@@ -39,6 +39,7 @@ import { Route as AuthenticatedFreelanceRevenusRouteImport } from './routes/_aut
 import { Route as AuthenticatedFreelanceSuiviRouteImport } from './routes/_authenticated/freelance.suivi'
 import { Route as AuthenticatedEntrepriseMissionsIndexRouteImport } from './routes/_authenticated/entreprise.missions.index'
 import { Route as AuthenticatedFreelanceMissionsIndexRouteImport } from './routes/_authenticated/freelance.missions.index'
+import { Route as AuthenticatedFreelanceMissionsMissionIdRouteImport } from './routes/_authenticated/freelance.missions.$missionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -197,6 +198,12 @@ const AuthenticatedFreelanceMissionsIndexRoute =
     path: '/freelance/missions/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFreelanceMissionsMissionIdRoute =
+  AuthenticatedFreelanceMissionsMissionIdRouteImport.update({
+    id: '/freelance/missions/$missionId',
+    path: '/freelance/missions/$missionId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -226,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
   '/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
   '/entreprise/missions/': typeof AuthenticatedEntrepriseMissionsIndexRoute
   '/freelance/missions/': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
@@ -257,6 +265,7 @@ export interface FileRoutesByTo {
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
   '/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
   '/entreprise/missions': typeof AuthenticatedEntrepriseMissionsIndexRoute
   '/freelance/missions': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
@@ -290,6 +299,7 @@ export interface FileRoutesById {
   '/_authenticated/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/_authenticated/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
   '/_authenticated/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/_authenticated/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
   '/_authenticated/entreprise/missions/': typeof AuthenticatedEntrepriseMissionsIndexRoute
   '/_authenticated/freelance/missions/': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
@@ -323,6 +333,7 @@ export interface FileRouteTypes {
     | '/freelance/parametres'
     | '/freelance/revenus'
     | '/freelance/suivi'
+    | '/freelance/missions/$missionId'
     | '/entreprise/missions/'
     | '/freelance/missions/'
   fileRoutesByTo: FileRoutesByTo
@@ -354,6 +365,7 @@ export interface FileRouteTypes {
     | '/freelance/parametres'
     | '/freelance/revenus'
     | '/freelance/suivi'
+    | '/freelance/missions/$missionId'
     | '/entreprise/missions'
     | '/freelance/missions'
   id:
@@ -386,6 +398,7 @@ export interface FileRouteTypes {
     | '/_authenticated/freelance/parametres'
     | '/_authenticated/freelance/revenus'
     | '/_authenticated/freelance/suivi'
+    | '/_authenticated/freelance/missions/$missionId'
     | '/_authenticated/entreprise/missions/'
     | '/_authenticated/freelance/missions/'
   fileRoutesById: FileRoutesById
@@ -627,6 +640,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFreelanceMissionsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/freelance/missions/$missionId': {
+      id: '/_authenticated/freelance/missions/$missionId'
+      path: '/freelance/missions/$missionId'
+      fullPath: '/freelance/missions/$missionId'
+      preLoaderRoute: typeof AuthenticatedFreelanceMissionsMissionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -637,6 +657,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFreelanceParametresRoute: typeof AuthenticatedFreelanceParametresRoute
   AuthenticatedFreelanceRevenusRoute: typeof AuthenticatedFreelanceRevenusRoute
   AuthenticatedFreelanceSuiviRoute: typeof AuthenticatedFreelanceSuiviRoute
+  AuthenticatedFreelanceMissionsMissionIdRoute: typeof AuthenticatedFreelanceMissionsMissionIdRoute
   AuthenticatedEntrepriseMissionsIndexRoute: typeof AuthenticatedEntrepriseMissionsIndexRoute
   AuthenticatedFreelanceMissionsIndexRoute: typeof AuthenticatedFreelanceMissionsIndexRoute
 }
@@ -649,6 +670,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFreelanceParametresRoute: AuthenticatedFreelanceParametresRoute,
   AuthenticatedFreelanceRevenusRoute: AuthenticatedFreelanceRevenusRoute,
   AuthenticatedFreelanceSuiviRoute: AuthenticatedFreelanceSuiviRoute,
+  AuthenticatedFreelanceMissionsMissionIdRoute:
+    AuthenticatedFreelanceMissionsMissionIdRoute,
   AuthenticatedEntrepriseMissionsIndexRoute:
     AuthenticatedEntrepriseMissionsIndexRoute,
   AuthenticatedFreelanceMissionsIndexRoute:
