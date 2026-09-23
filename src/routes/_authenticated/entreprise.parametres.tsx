@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CompanyShell } from "@/components/console-shell";
 import { Label, Panel } from "@/components/ui-kit";
 import { AccountTypeCard } from "@/components/account-type";
+import { NotificationPreferencesCard } from "@/components/notification-preferences";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe, useSignOut } from "@/lib/auth";
 
@@ -79,6 +80,8 @@ function ParametresPage() {
             {saved && <p className="text-xs text-ok">Modifications enregistrées.</p>}
           </form>
         </Panel>
+
+        <NotificationPreferencesCard />
 
         <AccountTypeCard />
 
