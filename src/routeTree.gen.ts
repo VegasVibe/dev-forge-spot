@@ -23,6 +23,8 @@ import { Route as AuthenticatedEntreprisePaiementsRouteImport } from './routes/_
 import { Route as AuthenticatedEntrepriseParametresRouteImport } from './routes/_authenticated/entreprise.parametres'
 import { Route as AuthenticatedEntrepriseRecommandationsRouteImport } from './routes/_authenticated/entreprise.recommandations'
 import { Route as AuthenticatedEntrepriseShortlistRouteImport } from './routes/_authenticated/entreprise.shortlist'
+import { Route as AuthenticatedFreelanceAlertesRouteImport } from './routes/_authenticated/freelance.alertes'
+import { Route as AuthenticatedFreelanceApercuRouteImport } from './routes/_authenticated/freelance.apercu'
 import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
 import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
 import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
@@ -114,6 +116,18 @@ const AuthenticatedEntrepriseShortlistRoute =
   AuthenticatedEntrepriseShortlistRouteImport.update({
     id: '/entreprise/shortlist',
     path: '/entreprise/shortlist',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceAlertesRoute =
+  AuthenticatedFreelanceAlertesRouteImport.update({
+    id: '/freelance/alertes',
+    path: '/freelance/alertes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceApercuRoute =
+  AuthenticatedFreelanceApercuRouteImport.update({
+    id: '/freelance/apercu',
+    path: '/freelance/apercu',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFreelanceCandidaturesRoute =
@@ -215,6 +229,8 @@ export interface FileRoutesByFullPath {
   '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
   '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
+  '/freelance/alertes': typeof AuthenticatedFreelanceAlertesRoute
+  '/freelance/apercu': typeof AuthenticatedFreelanceApercuRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -244,6 +260,8 @@ export interface FileRoutesByTo {
   '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
   '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
+  '/freelance/alertes': typeof AuthenticatedFreelanceAlertesRoute
+  '/freelance/apercu': typeof AuthenticatedFreelanceApercuRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -275,6 +293,8 @@ export interface FileRoutesById {
   '/_authenticated/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/_authenticated/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
   '/_authenticated/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
+  '/_authenticated/freelance/alertes': typeof AuthenticatedFreelanceAlertesRoute
+  '/_authenticated/freelance/apercu': typeof AuthenticatedFreelanceApercuRoute
   '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -306,6 +326,8 @@ export interface FileRouteTypes {
     | '/entreprise/parametres'
     | '/entreprise/recommandations'
     | '/entreprise/shortlist'
+    | '/freelance/alertes'
+    | '/freelance/apercu'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -335,6 +357,8 @@ export interface FileRouteTypes {
     | '/entreprise/parametres'
     | '/entreprise/recommandations'
     | '/entreprise/shortlist'
+    | '/freelance/alertes'
+    | '/freelance/apercu'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -365,6 +389,8 @@ export interface FileRouteTypes {
     | '/_authenticated/entreprise/parametres'
     | '/_authenticated/entreprise/recommandations'
     | '/_authenticated/entreprise/shortlist'
+    | '/_authenticated/freelance/alertes'
+    | '/_authenticated/freelance/apercu'
     | '/_authenticated/freelance/candidatures'
     | '/_authenticated/freelance/dashboard'
     | '/_authenticated/freelance/messagerie'
@@ -489,6 +515,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEntrepriseShortlistRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/freelance/alertes': {
+      id: '/_authenticated/freelance/alertes'
+      path: '/freelance/alertes'
+      fullPath: '/freelance/alertes'
+      preLoaderRoute: typeof AuthenticatedFreelanceAlertesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/apercu': {
+      id: '/_authenticated/freelance/apercu'
+      path: '/freelance/apercu'
+      fullPath: '/freelance/apercu'
+      preLoaderRoute: typeof AuthenticatedFreelanceApercuRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/freelance/candidatures': {
       id: '/_authenticated/freelance/candidatures'
       path: '/freelance/candidatures'
@@ -600,6 +640,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEntrepriseParametresRoute: typeof AuthenticatedEntrepriseParametresRoute
   AuthenticatedEntrepriseRecommandationsRoute: typeof AuthenticatedEntrepriseRecommandationsRoute
   AuthenticatedEntrepriseShortlistRoute: typeof AuthenticatedEntrepriseShortlistRoute
+  AuthenticatedFreelanceAlertesRoute: typeof AuthenticatedFreelanceAlertesRoute
+  AuthenticatedFreelanceApercuRoute: typeof AuthenticatedFreelanceApercuRoute
   AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
   AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
   AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
@@ -632,6 +674,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEntrepriseRecommandationsRoute:
     AuthenticatedEntrepriseRecommandationsRoute,
   AuthenticatedEntrepriseShortlistRoute: AuthenticatedEntrepriseShortlistRoute,
+  AuthenticatedFreelanceAlertesRoute: AuthenticatedFreelanceAlertesRoute,
+  AuthenticatedFreelanceApercuRoute: AuthenticatedFreelanceApercuRoute,
   AuthenticatedFreelanceCandidaturesRoute:
     AuthenticatedFreelanceCandidaturesRoute,
   AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
