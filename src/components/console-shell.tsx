@@ -27,6 +27,8 @@ const freelanceNav: NavItem[] = [
   { to: "/freelance/suivi", label: "Missions en cours" },
   { to: "/freelance/revenus", label: "Rémunérations" },
   { to: "/freelance/profil", label: "Mon profil & portfolio" },
+  { to: "/freelance/apercu", label: "Aperçu public" },
+  { to: "/freelance/alertes", label: "Alertes missions" },
   { to: "/freelance/messagerie", label: "Messagerie" },
 ];
 
