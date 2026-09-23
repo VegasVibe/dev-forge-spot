@@ -44,11 +44,20 @@ export const recommendFreelances = createServerFn({ method: "POST" })
       fetch: runIdFetch.fetch,
     });
 
-    const pool = data.candidateIds?.length
-      ? freelances.filter((f) => data.candidateIds!.includes(f.id))
-      : freelances;
+    const supabasePublic = createClient(
+      process.env["SUPABASE_URL"]!,
+      process.env["SUPABASE_PUBLISHABLE_KEY"]!,
+      { auth: { persistSession: false, autoRefreshToken: false } },
+    );
 
-    const roster = pool.map((f) => ({
+    let query = supabasePublic
+      .from("freelance_profiles")
+      .select("id, name, title, city, available, rate, rating, missions_count, skills, bio, portfolio");
+    if (data.candidateIds?.length) query = query.in("id", data.candidateIds);
+    const { data: pool, error } = await query;
+    if (error) throw new Error("Impossible de charger les profils.");
+
+    const roster = (pool ?? []).map((f) => ({
       id: f.id,
       nom: f.name,
       titre: f.title,
@@ -56,11 +65,14 @@ export const recommendFreelances = createServerFn({ method: "POST" })
       disponible: f.available,
       tjm: f.rate,
       note: f.rating,
-      missions: f.missions,
+      missions: f.missions_count,
       competences: f.skills,
       bio: f.bio,
-      realisations: f.portfolio.map((p) => `${p.title} (${p.client}, ${p.year}) — ${p.result}`),
+      realisations: ((f.portfolio ?? []) as { title: string; client: string; year: string; result: string }[]).map(
+        (p) => `${p.title} (${p.client}, ${p.year}) — ${p.result}`,
+      ),
     }));
+
 
     const result = streamText({
       model: lovable.responses("openai/gpt-6-astra"),
