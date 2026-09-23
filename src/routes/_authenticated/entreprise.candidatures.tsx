@@ -102,7 +102,7 @@ function CandidaturesPage() {
                           <div className="min-w-0 flex-1">
                             <Link
                               to={"/entreprise/freelances/$freelanceId" as never}
-                              params={{ freelanceId: a.freelance_id }}
+                              params={{ freelanceId: a.freelance_id } as never}
                               className="text-sm font-medium hover:text-accent transition-colors"
                             >
                               {f?.name ?? a.freelance_id}

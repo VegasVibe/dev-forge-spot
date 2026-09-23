@@ -44,7 +44,7 @@ function FreelanceCandidatures() {
               <Link
                 key={a.id}
                 to="/freelance/missions/$missionId"
-                params={{ missionId: a.mission_id }}
+                params={{ missionId: a.mission_id } as never}
                 className="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_0.8fr_1fr] gap-3 items-center px-2.5 py-3.5 hover:bg-card/60 rounded-lg transition-colors"
               >
                 <div>

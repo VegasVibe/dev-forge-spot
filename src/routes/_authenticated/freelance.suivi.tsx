@@ -42,7 +42,7 @@ function FreelanceSuivi() {
                   <Link
                     key={m.id}
                     to="/freelance/missions/$missionId"
-                    params={{ missionId: m.id }}
+                    params={{ missionId: m.id } as never}
                     className="block rounded-xl bg-card/70 ring-1 ring-border p-3.5 hover:ring-accent/30 transition-colors"
                   >
                     <div className="text-sm font-medium">{m.title}</div>

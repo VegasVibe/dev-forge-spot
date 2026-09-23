@@ -55,7 +55,7 @@ function HistoriquePage() {
                     <div className="min-w-0 flex-1">
                       <Link
                         to={"/entreprise/missions/$missionId" as never}
-                        params={{ missionId: m.id }}
+                        params={{ missionId: m.id } as never}
                         className="text-sm font-medium hover:text-accent transition-colors"
                       >
                         {m.title}

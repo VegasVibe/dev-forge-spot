@@ -100,7 +100,7 @@ function ShortlistPage() {
                 <div className="min-w-0 flex-1">
                   <Link
                     to={"/entreprise/freelances/$freelanceId" as never}
-                    params={{ freelanceId: f.id }}
+                    params={{ freelanceId: f.id } as never}
                     className="font-display font-semibold tracking-tight hover:text-accent transition-colors"
                   >
                     {f.name}
