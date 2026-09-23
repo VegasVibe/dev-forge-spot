@@ -19,6 +19,7 @@ import { Route as AuthenticatedEntrepriseDashboardRouteImport } from './routes/_
 import { Route as AuthenticatedEntrepriseEntretiensRouteImport } from './routes/_authenticated/entreprise.entretiens'
 import { Route as AuthenticatedEntrepriseHistoriqueRouteImport } from './routes/_authenticated/entreprise.historique'
 import { Route as AuthenticatedEntrepriseMessagerieRouteImport } from './routes/_authenticated/entreprise.messagerie'
+import { Route as AuthenticatedEntrepriseNotificationsRouteImport } from './routes/_authenticated/entreprise.notifications'
 import { Route as AuthenticatedEntreprisePaiementsRouteImport } from './routes/_authenticated/entreprise.paiements'
 import { Route as AuthenticatedEntrepriseParametresRouteImport } from './routes/_authenticated/entreprise.parametres'
 import { Route as AuthenticatedEntrepriseRecommandationsRouteImport } from './routes/_authenticated/entreprise.recommandations'
@@ -28,6 +29,7 @@ import { Route as AuthenticatedFreelanceApercuRouteImport } from './routes/_auth
 import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
 import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
 import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
+import { Route as AuthenticatedFreelanceNotificationsRouteImport } from './routes/_authenticated/freelance.notifications'
 import { Route as AuthenticatedFreelanceOnboardingRouteImport } from './routes/_authenticated/freelance.onboarding'
 import { Route as AuthenticatedFreelanceParametresRouteImport } from './routes/_authenticated/freelance.parametres'
 import { Route as AuthenticatedFreelanceProfilRouteImport } from './routes/_authenticated/freelance.profil'
@@ -94,6 +96,12 @@ const AuthenticatedEntrepriseMessagerieRoute =
     path: '/entreprise/messagerie',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedEntrepriseNotificationsRoute =
+  AuthenticatedEntrepriseNotificationsRouteImport.update({
+    id: '/entreprise/notifications',
+    path: '/entreprise/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEntreprisePaiementsRoute =
   AuthenticatedEntreprisePaiementsRouteImport.update({
     id: '/entreprise/paiements',
@@ -146,6 +154,12 @@ const AuthenticatedFreelanceMessagerieRoute =
   AuthenticatedFreelanceMessagerieRouteImport.update({
     id: '/freelance/messagerie',
     path: '/freelance/messagerie',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceNotificationsRoute =
+  AuthenticatedFreelanceNotificationsRouteImport.update({
+    id: '/freelance/notifications',
+    path: '/freelance/notifications',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFreelanceOnboardingRoute =
@@ -225,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
   '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
   '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/notifications': typeof AuthenticatedEntrepriseNotificationsRoute
   '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
   '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
@@ -234,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/notifications': typeof AuthenticatedFreelanceNotificationsRoute
   '/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
@@ -256,6 +272,7 @@ export interface FileRoutesByTo {
   '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
   '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
   '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/notifications': typeof AuthenticatedEntrepriseNotificationsRoute
   '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
   '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
@@ -265,6 +282,7 @@ export interface FileRoutesByTo {
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/notifications': typeof AuthenticatedFreelanceNotificationsRoute
   '/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
@@ -289,6 +307,7 @@ export interface FileRoutesById {
   '/_authenticated/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
   '/_authenticated/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
   '/_authenticated/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/_authenticated/entreprise/notifications': typeof AuthenticatedEntrepriseNotificationsRoute
   '/_authenticated/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
   '/_authenticated/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/_authenticated/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
@@ -298,6 +317,7 @@ export interface FileRoutesById {
   '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/_authenticated/freelance/notifications': typeof AuthenticatedFreelanceNotificationsRoute
   '/_authenticated/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/_authenticated/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/_authenticated/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
@@ -322,6 +342,7 @@ export interface FileRouteTypes {
     | '/entreprise/entretiens'
     | '/entreprise/historique'
     | '/entreprise/messagerie'
+    | '/entreprise/notifications'
     | '/entreprise/paiements'
     | '/entreprise/parametres'
     | '/entreprise/recommandations'
@@ -331,6 +352,7 @@ export interface FileRouteTypes {
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
+    | '/freelance/notifications'
     | '/freelance/onboarding'
     | '/freelance/parametres'
     | '/freelance/profil'
@@ -353,6 +375,7 @@ export interface FileRouteTypes {
     | '/entreprise/entretiens'
     | '/entreprise/historique'
     | '/entreprise/messagerie'
+    | '/entreprise/notifications'
     | '/entreprise/paiements'
     | '/entreprise/parametres'
     | '/entreprise/recommandations'
@@ -362,6 +385,7 @@ export interface FileRouteTypes {
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
+    | '/freelance/notifications'
     | '/freelance/onboarding'
     | '/freelance/parametres'
     | '/freelance/profil'
@@ -385,6 +409,7 @@ export interface FileRouteTypes {
     | '/_authenticated/entreprise/entretiens'
     | '/_authenticated/entreprise/historique'
     | '/_authenticated/entreprise/messagerie'
+    | '/_authenticated/entreprise/notifications'
     | '/_authenticated/entreprise/paiements'
     | '/_authenticated/entreprise/parametres'
     | '/_authenticated/entreprise/recommandations'
@@ -394,6 +419,7 @@ export interface FileRouteTypes {
     | '/_authenticated/freelance/candidatures'
     | '/_authenticated/freelance/dashboard'
     | '/_authenticated/freelance/messagerie'
+    | '/_authenticated/freelance/notifications'
     | '/_authenticated/freelance/onboarding'
     | '/_authenticated/freelance/parametres'
     | '/_authenticated/freelance/profil'
@@ -487,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEntrepriseMessagerieRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/entreprise/notifications': {
+      id: '/_authenticated/entreprise/notifications'
+      path: '/entreprise/notifications'
+      fullPath: '/entreprise/notifications'
+      preLoaderRoute: typeof AuthenticatedEntrepriseNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/entreprise/paiements': {
       id: '/_authenticated/entreprise/paiements'
       path: '/entreprise/paiements'
@@ -548,6 +581,13 @@ declare module '@tanstack/react-router' {
       path: '/freelance/messagerie'
       fullPath: '/freelance/messagerie'
       preLoaderRoute: typeof AuthenticatedFreelanceMessagerieRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/notifications': {
+      id: '/_authenticated/freelance/notifications'
+      path: '/freelance/notifications'
+      fullPath: '/freelance/notifications'
+      preLoaderRoute: typeof AuthenticatedFreelanceNotificationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/freelance/onboarding': {
@@ -636,6 +676,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEntrepriseEntretiensRoute: typeof AuthenticatedEntrepriseEntretiensRoute
   AuthenticatedEntrepriseHistoriqueRoute: typeof AuthenticatedEntrepriseHistoriqueRoute
   AuthenticatedEntrepriseMessagerieRoute: typeof AuthenticatedEntrepriseMessagerieRoute
+  AuthenticatedEntrepriseNotificationsRoute: typeof AuthenticatedEntrepriseNotificationsRoute
   AuthenticatedEntreprisePaiementsRoute: typeof AuthenticatedEntreprisePaiementsRoute
   AuthenticatedEntrepriseParametresRoute: typeof AuthenticatedEntrepriseParametresRoute
   AuthenticatedEntrepriseRecommandationsRoute: typeof AuthenticatedEntrepriseRecommandationsRoute
@@ -645,6 +686,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
   AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
   AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
+  AuthenticatedFreelanceNotificationsRoute: typeof AuthenticatedFreelanceNotificationsRoute
   AuthenticatedFreelanceOnboardingRoute: typeof AuthenticatedFreelanceOnboardingRoute
   AuthenticatedFreelanceParametresRoute: typeof AuthenticatedFreelanceParametresRoute
   AuthenticatedFreelanceProfilRoute: typeof AuthenticatedFreelanceProfilRoute
@@ -668,6 +710,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedEntrepriseHistoriqueRoute,
   AuthenticatedEntrepriseMessagerieRoute:
     AuthenticatedEntrepriseMessagerieRoute,
+  AuthenticatedEntrepriseNotificationsRoute:
+    AuthenticatedEntrepriseNotificationsRoute,
   AuthenticatedEntreprisePaiementsRoute: AuthenticatedEntreprisePaiementsRoute,
   AuthenticatedEntrepriseParametresRoute:
     AuthenticatedEntrepriseParametresRoute,
@@ -680,6 +724,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedFreelanceCandidaturesRoute,
   AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
   AuthenticatedFreelanceMessagerieRoute: AuthenticatedFreelanceMessagerieRoute,
+  AuthenticatedFreelanceNotificationsRoute:
+    AuthenticatedFreelanceNotificationsRoute,
   AuthenticatedFreelanceOnboardingRoute: AuthenticatedFreelanceOnboardingRoute,
   AuthenticatedFreelanceParametresRoute: AuthenticatedFreelanceParametresRoute,
   AuthenticatedFreelanceProfilRoute: AuthenticatedFreelanceProfilRoute,

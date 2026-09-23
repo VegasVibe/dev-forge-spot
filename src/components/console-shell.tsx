@@ -18,6 +18,7 @@ const companyNav: NavItem[] = [
   { to: "/entreprise/paiements", label: "Dépenses" },
   { to: "/entreprise/historique", label: "Historique" },
   { to: "/entreprise/messagerie", label: "Messagerie" },
+  { to: "/entreprise/notifications", label: "Notifications" },
 ];
 
 const freelanceNav: NavItem[] = [
@@ -30,6 +31,7 @@ const freelanceNav: NavItem[] = [
   { to: "/freelance/apercu", label: "Aperçu public" },
   { to: "/freelance/alertes", label: "Alertes missions" },
   { to: "/freelance/messagerie", label: "Messagerie" },
+  { to: "/freelance/notifications", label: "Notifications" },
 ];
 
 function NavLink({ to, label, active }: { to: string; label: string; active: boolean }) {
@@ -127,6 +129,13 @@ function ConsoleShell({
                         ))}
                       </ul>
                     )}
+                    <Link
+                      to={(role === "entreprise" ? "/entreprise/notifications" : "/freelance/notifications") as never}
+                      onClick={() => setOpenBell(false)}
+                      className="mt-2 block rounded-xl bg-card ring-1 ring-border px-2.5 py-2 text-xs text-center hover:bg-muted transition-colors"
+                    >
+                      Ouvrir le centre de notifications
+                    </Link>
                   </div>
                 )}
               </div>
