@@ -118,6 +118,41 @@ export type NotificationRow = {
   kind: string;
   read: boolean;
   created_at: string;
+  entity_type: string | null;
+  entity_id: string | null;
+  link: string | null;
+};
+
+export type NotificationCategory = "mission" | "message" | "candidature";
+
+export type DigestFrequency = "instant" | "daily" | "weekly" | "never";
+
+export type NotificationPreferences = {
+  user_id: string;
+  mission_in_app: boolean;
+  mission_email: boolean;
+  message_in_app: boolean;
+  message_email: boolean;
+  candidature_in_app: boolean;
+  candidature_email: boolean;
+  digest_frequency: DigestFrequency;
+};
+
+export const defaultNotificationPreferences: Omit<NotificationPreferences, "user_id"> = {
+  mission_in_app: true,
+  mission_email: true,
+  message_in_app: true,
+  message_email: true,
+  candidature_in_app: true,
+  candidature_email: true,
+  digest_frequency: "instant",
+};
+
+export const digestLabels: Record<DigestFrequency, string> = {
+  instant: "Immédiat",
+  daily: "Résumé quotidien",
+  weekly: "Résumé hebdomadaire",
+  never: "Jamais",
 };
 
 export type AlertCriteria = {
