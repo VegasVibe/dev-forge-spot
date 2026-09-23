@@ -73,7 +73,9 @@ export function NotificationCenter({ role }: { role: Role }) {
         detail: n.detail,
         date: n.created_at,
         unread: !n.read,
-        to: kind === "message" ? (role === "entreprise" ? "/entreprise/messagerie" : "/freelance/messagerie") : undefined,
+        to:
+          n.link ??
+          (kind === "message" ? (role === "entreprise" ? "/entreprise/messagerie" : "/freelance/messagerie") : undefined),
       });
     }
 
@@ -104,7 +106,7 @@ export function NotificationCenter({ role }: { role: Role }) {
             : `${a.mission_title} — ${a.availability || "disponibilité non précisée"}`,
         date: a.created_at,
         unread: false,
-        to: role === "entreprise" ? "/entreprise/candidatures" : "/freelance/candidatures",
+        to: role === "entreprise" ? `/entreprise/missions/${a.mission_id}` : `/freelance/missions/${a.mission_id}`,
       });
     }
 
@@ -121,7 +123,7 @@ export function NotificationCenter({ role }: { role: Role }) {
             detail: `${m.company} · ${formatEuro(m.budget)} · alerte « ${alert.label} »`,
             date: m.created_at,
             unread: false,
-            to: "/freelance/missions",
+            to: `/freelance/missions/${m.id}`,
           });
         }
       }

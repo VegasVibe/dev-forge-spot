@@ -56,6 +56,9 @@ function CandidaturesPage() {
       title: `Candidature ${applicationStatusLabels[status].toLowerCase()}`,
       detail: app.mission_title,
       kind: "candidature",
+      entityType: "candidature",
+      entityId: app.id,
+      link: "/freelance/candidatures",
     });
     void qc.invalidateQueries({ queryKey: ["applications"] });
     void qc.invalidateQueries({ queryKey: ["missions"] });

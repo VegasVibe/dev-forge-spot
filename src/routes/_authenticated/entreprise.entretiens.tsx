@@ -86,6 +86,9 @@ function EntretiensPage() {
       title: "Invitation à un entretien",
       detail: `${new Date(day).toLocaleDateString("fr-FR")} à ${time}`,
       kind: "entretien",
+      entityType: "message",
+      entityId: f.id,
+      link: "/freelance/messagerie",
     });
     void qc.invalidateQueries({ queryKey: ["interviews"] });
     void qc.invalidateQueries({ queryKey: ["messages"] });

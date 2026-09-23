@@ -302,13 +302,52 @@ export type Database = {
           },
         ]
       }
+      notification_preferences: {
+        Row: {
+          candidature_email: boolean
+          candidature_in_app: boolean
+          digest_frequency: string
+          message_email: boolean
+          message_in_app: boolean
+          mission_email: boolean
+          mission_in_app: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          candidature_email?: boolean
+          candidature_in_app?: boolean
+          digest_frequency?: string
+          message_email?: boolean
+          message_in_app?: boolean
+          mission_email?: boolean
+          mission_in_app?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          candidature_email?: boolean
+          candidature_in_app?: boolean
+          digest_frequency?: string
+          message_email?: boolean
+          message_in_app?: boolean
+          mission_email?: boolean
+          mission_in_app?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
           detail: string
+          entity_id: string | null
+          entity_type: string | null
           freelance_id: string | null
           id: string
           kind: string
+          link: string | null
           read: boolean
           title: string
           user_id: string | null
@@ -316,9 +355,12 @@ export type Database = {
         Insert: {
           created_at?: string
           detail?: string
+          entity_id?: string | null
+          entity_type?: string | null
           freelance_id?: string | null
           id?: string
           kind?: string
+          link?: string | null
           read?: boolean
           title: string
           user_id?: string | null
@@ -326,9 +368,12 @@ export type Database = {
         Update: {
           created_at?: string
           detail?: string
+          entity_id?: string | null
+          entity_type?: string | null
           freelance_id?: string | null
           id?: string
           kind?: string
+          link?: string | null
           read?: boolean
           title?: string
           user_id?: string | null
