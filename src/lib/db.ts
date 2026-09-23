@@ -23,6 +23,8 @@ export type FreelanceRow = {
   rating: number;
   reviews: number;
   missions_count: number;
+  experience_years: number;
+  onboarded: boolean;
   skills: string[];
   bio: string;
   portfolio: { title: string; client: string; year: string; result: string }[];
@@ -230,6 +232,8 @@ export async function ensureFreelanceProfile(userId: string, fullName: string) {
       rating: 5,
       reviews: 0,
       missions_count: 0,
+      experience_years: 0,
+      onboarded: false,
       skills: [],
       bio: "",
     })
