@@ -18,6 +18,7 @@ const companyNav: NavItem[] = [
   { to: "/entreprise/paiements", label: "Dépenses" },
   { to: "/entreprise/historique", label: "Historique" },
   { to: "/entreprise/messagerie", label: "Messagerie" },
+  { to: "/entreprise/notifications", label: "Notifications" },
 ];
 
 const freelanceNav: NavItem[] = [
@@ -30,6 +31,7 @@ const freelanceNav: NavItem[] = [
   { to: "/freelance/apercu", label: "Aperçu public" },
   { to: "/freelance/alertes", label: "Alertes missions" },
   { to: "/freelance/messagerie", label: "Messagerie" },
+  { to: "/freelance/notifications", label: "Notifications" },
 ];
 
 function NavLink({ to, label, active }: { to: string; label: string; active: boolean }) {
