@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import { AccountSwitcher, AccountTypeBadge } from "@/components/account-switcher";
 import { Label } from "@/components/ui-kit";
 import { useMe, useRoleGuard, useSignOut, type Role } from "@/lib/auth";
 import { markAllRead, useNotifications } from "@/lib/db";
@@ -87,6 +88,7 @@ function ConsoleShell({
 
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
               <span className="hidden md:inline text-xs text-ink-soft truncate max-w-[220px]">{who}</span>
+              <AccountSwitcher />
               <div className="relative">
                 <button
                   onClick={() => {

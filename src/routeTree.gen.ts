@@ -26,6 +26,7 @@ import { Route as AuthenticatedEntrepriseShortlistRouteImport } from './routes/_
 import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
 import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
 import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
+import { Route as AuthenticatedFreelanceOnboardingRouteImport } from './routes/_authenticated/freelance.onboarding'
 import { Route as AuthenticatedFreelanceParametresRouteImport } from './routes/_authenticated/freelance.parametres'
 import { Route as AuthenticatedFreelanceProfilRouteImport } from './routes/_authenticated/freelance.profil'
 import { Route as AuthenticatedFreelanceRevenusRouteImport } from './routes/_authenticated/freelance.revenus'
@@ -133,6 +134,12 @@ const AuthenticatedFreelanceMessagerieRoute =
     path: '/freelance/messagerie',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFreelanceOnboardingRoute =
+  AuthenticatedFreelanceOnboardingRouteImport.update({
+    id: '/freelance/onboarding',
+    path: '/freelance/onboarding',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedFreelanceParametresRoute =
   AuthenticatedFreelanceParametresRouteImport.update({
     id: '/freelance/parametres',
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
   '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
@@ -239,6 +247,7 @@ export interface FileRoutesByTo {
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
   '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
@@ -269,6 +278,7 @@ export interface FileRoutesById {
   '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/_authenticated/freelance/onboarding': typeof AuthenticatedFreelanceOnboardingRoute
   '/_authenticated/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
   '/_authenticated/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
   '/_authenticated/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
@@ -299,6 +309,7 @@ export interface FileRouteTypes {
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
+    | '/freelance/onboarding'
     | '/freelance/parametres'
     | '/freelance/profil'
     | '/freelance/revenus'
@@ -327,6 +338,7 @@ export interface FileRouteTypes {
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
+    | '/freelance/onboarding'
     | '/freelance/parametres'
     | '/freelance/profil'
     | '/freelance/revenus'
@@ -356,6 +368,7 @@ export interface FileRouteTypes {
     | '/_authenticated/freelance/candidatures'
     | '/_authenticated/freelance/dashboard'
     | '/_authenticated/freelance/messagerie'
+    | '/_authenticated/freelance/onboarding'
     | '/_authenticated/freelance/parametres'
     | '/_authenticated/freelance/profil'
     | '/_authenticated/freelance/revenus'
@@ -497,6 +510,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFreelanceMessagerieRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/freelance/onboarding': {
+      id: '/_authenticated/freelance/onboarding'
+      path: '/freelance/onboarding'
+      fullPath: '/freelance/onboarding'
+      preLoaderRoute: typeof AuthenticatedFreelanceOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/freelance/parametres': {
       id: '/_authenticated/freelance/parametres'
       path: '/freelance/parametres'
@@ -583,6 +603,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
   AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
   AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
+  AuthenticatedFreelanceOnboardingRoute: typeof AuthenticatedFreelanceOnboardingRoute
   AuthenticatedFreelanceParametresRoute: typeof AuthenticatedFreelanceParametresRoute
   AuthenticatedFreelanceProfilRoute: typeof AuthenticatedFreelanceProfilRoute
   AuthenticatedFreelanceRevenusRoute: typeof AuthenticatedFreelanceRevenusRoute
@@ -615,6 +636,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedFreelanceCandidaturesRoute,
   AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
   AuthenticatedFreelanceMessagerieRoute: AuthenticatedFreelanceMessagerieRoute,
+  AuthenticatedFreelanceOnboardingRoute: AuthenticatedFreelanceOnboardingRoute,
   AuthenticatedFreelanceParametresRoute: AuthenticatedFreelanceParametresRoute,
   AuthenticatedFreelanceProfilRoute: AuthenticatedFreelanceProfilRoute,
   AuthenticatedFreelanceRevenusRoute: AuthenticatedFreelanceRevenusRoute,
