@@ -84,6 +84,9 @@ function FreelanceMissionDetail() {
           title: "Nouvelle candidature",
           detail: `${myProfile.name} a postulé à « ${m.title} »`,
           kind: "candidature",
+          entityType: "candidature",
+          entityId: m.id,
+          link: `/entreprise/missions/${m.id}`,
         });
       }
       await qc.invalidateQueries({ queryKey: ["applications"] });

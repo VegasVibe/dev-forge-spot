@@ -74,6 +74,9 @@ function FreelanceAlertes() {
             title: `Nouvelle mission : ${m.title}`,
             detail: `${m.company} · ${formatEuro(m.budget)} — correspond à votre alerte « ${alert.label} »`,
             kind: "mission",
+            entityType: "mission",
+            entityId: m.id,
+            link: `/freelance/missions/${m.id}`,
           });
         }
         await supabase
