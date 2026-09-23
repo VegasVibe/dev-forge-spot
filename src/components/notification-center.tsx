@@ -73,7 +73,9 @@ export function NotificationCenter({ role }: { role: Role }) {
         detail: n.detail,
         date: n.created_at,
         unread: !n.read,
-        to: kind === "message" ? (role === "entreprise" ? "/entreprise/messagerie" : "/freelance/messagerie") : undefined,
+        to:
+          n.link ??
+          (kind === "message" ? (role === "entreprise" ? "/entreprise/messagerie" : "/freelance/messagerie") : undefined),
       });
     }
 
