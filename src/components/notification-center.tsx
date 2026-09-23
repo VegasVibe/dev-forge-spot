@@ -25,7 +25,7 @@ type Item = {
   detail: string;
   date: string;
   unread: boolean;
-  to?: string;
+  to?: string | undefined;
 };
 
 const kindLabels: Record<Kind, string> = {
