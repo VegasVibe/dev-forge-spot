@@ -31,8 +31,15 @@ import { Route as MissionsIndexRouteImport } from './routes/missions.index'
 import { Route as MissionsMissionIdRouteImport } from './routes/missions.$missionId'
 import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
 import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
+import { Route as AuthenticatedEntrepriseCandidaturesRouteImport } from './routes/_authenticated/entreprise.candidatures'
 import { Route as AuthenticatedEntrepriseDashboardRouteImport } from './routes/_authenticated/entreprise.dashboard'
+import { Route as AuthenticatedEntrepriseEntretiensRouteImport } from './routes/_authenticated/entreprise.entretiens'
+import { Route as AuthenticatedEntrepriseHistoriqueRouteImport } from './routes/_authenticated/entreprise.historique'
+import { Route as AuthenticatedEntrepriseMessagerieRouteImport } from './routes/_authenticated/entreprise.messagerie'
+import { Route as AuthenticatedEntreprisePaiementsRouteImport } from './routes/_authenticated/entreprise.paiements'
+import { Route as AuthenticatedEntrepriseParametresRouteImport } from './routes/_authenticated/entreprise.parametres'
 import { Route as AuthenticatedEntrepriseRecommandationsRouteImport } from './routes/_authenticated/entreprise.recommandations'
+import { Route as AuthenticatedEntrepriseShortlistRouteImport } from './routes/_authenticated/entreprise.shortlist'
 import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
 import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
 import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
@@ -156,16 +163,58 @@ const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
   path: '/onboarding/freelance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedEntrepriseCandidaturesRoute =
+  AuthenticatedEntrepriseCandidaturesRouteImport.update({
+    id: '/entreprise/candidatures',
+    path: '/entreprise/candidatures',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEntrepriseDashboardRoute =
   AuthenticatedEntrepriseDashboardRouteImport.update({
     id: '/entreprise/dashboard',
     path: '/entreprise/dashboard',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedEntrepriseEntretiensRoute =
+  AuthenticatedEntrepriseEntretiensRouteImport.update({
+    id: '/entreprise/entretiens',
+    path: '/entreprise/entretiens',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseHistoriqueRoute =
+  AuthenticatedEntrepriseHistoriqueRouteImport.update({
+    id: '/entreprise/historique',
+    path: '/entreprise/historique',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseMessagerieRoute =
+  AuthenticatedEntrepriseMessagerieRouteImport.update({
+    id: '/entreprise/messagerie',
+    path: '/entreprise/messagerie',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntreprisePaiementsRoute =
+  AuthenticatedEntreprisePaiementsRouteImport.update({
+    id: '/entreprise/paiements',
+    path: '/entreprise/paiements',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseParametresRoute =
+  AuthenticatedEntrepriseParametresRouteImport.update({
+    id: '/entreprise/parametres',
+    path: '/entreprise/parametres',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEntrepriseRecommandationsRoute =
   AuthenticatedEntrepriseRecommandationsRouteImport.update({
     id: '/entreprise/recommandations',
     path: '/entreprise/recommandations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseShortlistRoute =
+  AuthenticatedEntrepriseShortlistRouteImport.update({
+    id: '/entreprise/shortlist',
+    path: '/entreprise/shortlist',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFreelanceCandidaturesRoute =
@@ -269,8 +318,15 @@ export interface FileRoutesByFullPath {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances/': typeof FreelancesIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -307,8 +363,15 @@ export interface FileRoutesByTo {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances': typeof FreelancesIndexRoute
   '/missions': typeof MissionsIndexRoute
+  '/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -347,8 +410,15 @@ export interface FileRoutesById {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances/': typeof FreelancesIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/_authenticated/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/_authenticated/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/_authenticated/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/_authenticated/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/_authenticated/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/_authenticated/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/_authenticated/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/_authenticated/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/_authenticated/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -387,8 +457,15 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances/'
     | '/missions/'
+    | '/entreprise/candidatures'
     | '/entreprise/dashboard'
+    | '/entreprise/entretiens'
+    | '/entreprise/historique'
+    | '/entreprise/messagerie'
+    | '/entreprise/paiements'
+    | '/entreprise/parametres'
     | '/entreprise/recommandations'
+    | '/entreprise/shortlist'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -425,8 +502,15 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances'
     | '/missions'
+    | '/entreprise/candidatures'
     | '/entreprise/dashboard'
+    | '/entreprise/entretiens'
+    | '/entreprise/historique'
+    | '/entreprise/messagerie'
+    | '/entreprise/paiements'
+    | '/entreprise/parametres'
     | '/entreprise/recommandations'
+    | '/entreprise/shortlist'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -464,8 +548,15 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances/'
     | '/missions/'
+    | '/_authenticated/entreprise/candidatures'
     | '/_authenticated/entreprise/dashboard'
+    | '/_authenticated/entreprise/entretiens'
+    | '/_authenticated/entreprise/historique'
+    | '/_authenticated/entreprise/messagerie'
+    | '/_authenticated/entreprise/paiements'
+    | '/_authenticated/entreprise/parametres'
     | '/_authenticated/entreprise/recommandations'
+    | '/_authenticated/entreprise/shortlist'
     | '/_authenticated/freelance/candidatures'
     | '/_authenticated/freelance/dashboard'
     | '/_authenticated/freelance/messagerie'
@@ -662,6 +753,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingFreelanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/entreprise/candidatures': {
+      id: '/_authenticated/entreprise/candidatures'
+      path: '/entreprise/candidatures'
+      fullPath: '/entreprise/candidatures'
+      preLoaderRoute: typeof AuthenticatedEntrepriseCandidaturesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/entreprise/dashboard': {
       id: '/_authenticated/entreprise/dashboard'
       path: '/entreprise/dashboard'
@@ -669,11 +767,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEntrepriseDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/entreprise/entretiens': {
+      id: '/_authenticated/entreprise/entretiens'
+      path: '/entreprise/entretiens'
+      fullPath: '/entreprise/entretiens'
+      preLoaderRoute: typeof AuthenticatedEntrepriseEntretiensRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/historique': {
+      id: '/_authenticated/entreprise/historique'
+      path: '/entreprise/historique'
+      fullPath: '/entreprise/historique'
+      preLoaderRoute: typeof AuthenticatedEntrepriseHistoriqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/messagerie': {
+      id: '/_authenticated/entreprise/messagerie'
+      path: '/entreprise/messagerie'
+      fullPath: '/entreprise/messagerie'
+      preLoaderRoute: typeof AuthenticatedEntrepriseMessagerieRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/paiements': {
+      id: '/_authenticated/entreprise/paiements'
+      path: '/entreprise/paiements'
+      fullPath: '/entreprise/paiements'
+      preLoaderRoute: typeof AuthenticatedEntreprisePaiementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/parametres': {
+      id: '/_authenticated/entreprise/parametres'
+      path: '/entreprise/parametres'
+      fullPath: '/entreprise/parametres'
+      preLoaderRoute: typeof AuthenticatedEntrepriseParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/entreprise/recommandations': {
       id: '/_authenticated/entreprise/recommandations'
       path: '/entreprise/recommandations'
       fullPath: '/entreprise/recommandations'
       preLoaderRoute: typeof AuthenticatedEntrepriseRecommandationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/shortlist': {
+      id: '/_authenticated/entreprise/shortlist'
+      path: '/entreprise/shortlist'
+      fullPath: '/entreprise/shortlist'
+      preLoaderRoute: typeof AuthenticatedEntrepriseShortlistRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/freelance/candidatures': {
@@ -771,8 +911,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedEntrepriseCandidaturesRoute: typeof AuthenticatedEntrepriseCandidaturesRoute
   AuthenticatedEntrepriseDashboardRoute: typeof AuthenticatedEntrepriseDashboardRoute
+  AuthenticatedEntrepriseEntretiensRoute: typeof AuthenticatedEntrepriseEntretiensRoute
+  AuthenticatedEntrepriseHistoriqueRoute: typeof AuthenticatedEntrepriseHistoriqueRoute
+  AuthenticatedEntrepriseMessagerieRoute: typeof AuthenticatedEntrepriseMessagerieRoute
+  AuthenticatedEntreprisePaiementsRoute: typeof AuthenticatedEntreprisePaiementsRoute
+  AuthenticatedEntrepriseParametresRoute: typeof AuthenticatedEntrepriseParametresRoute
   AuthenticatedEntrepriseRecommandationsRoute: typeof AuthenticatedEntrepriseRecommandationsRoute
+  AuthenticatedEntrepriseShortlistRoute: typeof AuthenticatedEntrepriseShortlistRoute
   AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
   AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
   AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
@@ -789,9 +936,21 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedEntrepriseCandidaturesRoute:
+    AuthenticatedEntrepriseCandidaturesRoute,
   AuthenticatedEntrepriseDashboardRoute: AuthenticatedEntrepriseDashboardRoute,
+  AuthenticatedEntrepriseEntretiensRoute:
+    AuthenticatedEntrepriseEntretiensRoute,
+  AuthenticatedEntrepriseHistoriqueRoute:
+    AuthenticatedEntrepriseHistoriqueRoute,
+  AuthenticatedEntrepriseMessagerieRoute:
+    AuthenticatedEntrepriseMessagerieRoute,
+  AuthenticatedEntreprisePaiementsRoute: AuthenticatedEntreprisePaiementsRoute,
+  AuthenticatedEntrepriseParametresRoute:
+    AuthenticatedEntrepriseParametresRoute,
   AuthenticatedEntrepriseRecommandationsRoute:
     AuthenticatedEntrepriseRecommandationsRoute,
+  AuthenticatedEntrepriseShortlistRoute: AuthenticatedEntrepriseShortlistRoute,
   AuthenticatedFreelanceCandidaturesRoute:
     AuthenticatedFreelanceCandidaturesRoute,
   AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
