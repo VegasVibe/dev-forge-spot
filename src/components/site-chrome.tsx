@@ -11,10 +11,9 @@ export function SiteHeader() {
         </Link>
         <nav className="ml-8 hidden md:flex items-center gap-7 text-sm text-ink-soft">
           <Link to="/produit" className="hover:text-foreground transition-colors">Produit</Link>
-          <Link to="/missions" className="hover:text-foreground transition-colors">Missions</Link>
-          <Link to="/freelances" className="hover:text-foreground transition-colors">Développeurs</Link>
           <Link to="/tarifs" className="hover:text-foreground transition-colors">Tarifs</Link>
         </nav>
+
         <div className="ml-auto flex items-center gap-3">
           <Link to="/auth" className="text-sm text-ink-soft hover:text-foreground transition-colors">Connexion</Link>
           <Link

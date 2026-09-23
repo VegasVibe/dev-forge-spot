@@ -1,7 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { SitePage } from "@/components/site-chrome";
 import { BarChart, Label, Meter, StatusBadge, SkillTag, Avatar } from "@/components/ui-kit";
 import { formatEuro, freelances, missions, monthlySpend } from "@/lib/mock-data";
+import { supabase } from "@/integrations/supabase/client";
+import { homeFor, type Role } from "@/lib/auth";
+import { PENDING_ROLE_KEY } from "./auth";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,14 +19,52 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Nodale — La console des missions techniques freelance" },
       {
         property: "og:description",
-        content: "Entreprises et développeurs freelances : missions, budgets et paiements dans une console unique.",
+        content: "Entreprises et développeurs freelances : deux espaces distincts, missions, budgets et paiements.",
       },
     ],
   }),
   component: Landing,
 });
 
+/** Après une connexion Google/Apple, on applique le rôle choisi puis on ouvre le bon espace. */
+function useSessionRedirect() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void (async () => {
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+      if (!user || cancelled) return;
+
+      const pending = window.localStorage.getItem(PENDING_ROLE_KEY) as Role | null;
+      const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+      let role = (profile?.role as Role | undefined) ?? pending ?? "entreprise";
+
+      if (!profile) {
+        await supabase.from("profiles").insert({
+          id: user.id,
+          role,
+          full_name: (user.user_metadata?.["full_name"] as string) ?? user.email?.split("@")[0] ?? "",
+          email: user.email ?? null,
+        });
+      } else if (pending && pending !== profile.role) {
+        role = profile.role as Role;
+      }
+
+      window.localStorage.removeItem(PENDING_ROLE_KEY);
+      if (!cancelled) navigate({ to: homeFor(role), replace: true });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [navigate]);
+}
+
 function Landing() {
+  useSessionRedirect();
   const featured = missions.slice(0, 3);
 
   return (
@@ -41,21 +83,21 @@ function Landing() {
           </div>
           <div className="lg:col-span-4 lg:pt-24 flex flex-col gap-6">
             <p className="text-lg leading-relaxed text-ink-soft text-pretty">
-              Nodale connecte les équipes produit aux développeurs freelances qualifiés et centralise budgets, statuts
-              et collaborations dans un seul espace.
+              Nodale connecte les équipes produit aux développeurs freelances qualifiés. Deux espaces distincts, une
+              même exigence de clarté.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                to="/onboarding/entreprise"
+                to="/auth"
                 className="rounded-xl bg-accent text-accent-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-accent/40 hover:bg-accent/90 transition-colors"
               >
-                Publier une mission
+                Espace entreprise
               </Link>
               <Link
-                to="/onboarding/freelance"
+                to="/auth"
                 className="rounded-xl glass text-foreground text-sm font-medium py-2.5 px-4 ring-1 ring-border hover:bg-card transition-colors"
               >
-                Rejoindre comme freelance
+                Espace développeur
               </Link>
             </div>
           </div>
@@ -89,8 +131,8 @@ function Landing() {
                 <Label>Console entreprise</Label>
                 <h2 className="mt-1 font-display font-semibold text-2xl tracking-tight">Un seul écran pour tout le tech</h2>
               </div>
-              <Link to="/dashboard/entreprise" className="text-xs font-medium text-accent hover:text-accent/80">
-                Explorer la démo
+              <Link to="/auth" className="text-xs font-medium text-accent hover:text-accent/80">
+                Ouvrir mon espace
               </Link>
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
@@ -126,38 +168,31 @@ function Landing() {
               <Label>Missions ouvertes</Label>
               <div className="mt-4 divide-y divide-border">
                 {featured.map((m) => (
-                  <Link
-                    key={m.id}
-                    to="/missions/$missionId"
-                    params={{ missionId: m.id }}
-                    className="flex items-center justify-between gap-3 py-3 first:pt-0 group"
-                  >
+                  <div key={m.id} className="flex items-center justify-between gap-3 py-3 first:pt-0">
                     <div className="min-w-0">
-                      <div className="text-sm font-medium truncate group-hover:text-accent transition-colors">{m.title}</div>
+                      <div className="text-sm font-medium truncate">{m.title}</div>
                       <div className="text-xs text-ink-soft">{m.company} · {m.duration}</div>
                     </div>
                     <div className="text-right shrink-0">
                       <div className="text-sm font-mono">{formatEuro(m.budget)}</div>
                       <div className="mt-1"><StatusBadge status={m.status} /></div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
+              <Link to="/auth" className="mt-4 inline-block text-xs font-medium text-accent">
+                Voir toutes les missions →
+              </Link>
             </div>
 
             <div className="glass rounded-2xl ring-1 ring-border p-5">
               <Label>Profils vérifiés</Label>
               <div className="mt-4 space-y-3">
                 {freelances.slice(0, 3).map((f) => (
-                  <Link
-                    key={f.id}
-                    to="/freelances/$freelanceId"
-                    params={{ freelanceId: f.id }}
-                    className="flex items-center gap-3 group"
-                  >
+                  <div key={f.id} className="flex items-center gap-3">
                     <Avatar initials={f.initials} size="sm" />
                     <div className="min-w-0">
-                      <div className="text-sm font-medium truncate group-hover:text-accent transition-colors">{f.name}</div>
+                      <div className="text-sm font-medium truncate">{f.name}</div>
                       <div className="text-xs text-ink-soft truncate">{f.title} · {f.city}</div>
                     </div>
                     <div className="ml-auto flex gap-1">
@@ -165,7 +200,7 @@ function Landing() {
                         <SkillTag key={s}>{s}</SkillTag>
                       ))}
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -177,7 +212,7 @@ function Landing() {
       <section className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-12 gap-x-8 gap-y-10 border-t border-border pt-10">
           <div className="lg:col-span-5">
-            <Label>Deux parcours</Label>
+            <Label>Deux espaces</Label>
             <h2 className="mt-3 font-display font-semibold text-[clamp(2rem,4.5vw,3.6rem)] leading-[0.98] tracking-[-0.03em] text-balance">
               Une console pour l'entreprise. Un CRM pour le freelance.
             </h2>
@@ -188,7 +223,7 @@ function Landing() {
               Publiez un besoin détaillé, comparez les candidatures, suivez le coût par mission, le budget consommé et
               l'historique complet des prestataires avec qui vous avez travaillé.
             </p>
-            <Link to="/onboarding/entreprise" className="inline-block text-sm font-medium text-accent">
+            <Link to="/auth" className="inline-block text-sm font-medium text-accent">
               Créer un espace entreprise →
             </Link>
           </div>
@@ -198,7 +233,7 @@ function Landing() {
               Construisez un profil crédible, postulez en deux clics, suivez vos missions acceptées et vos paiements en
               attente comme dans un CRM personnel.
             </p>
-            <Link to="/onboarding/freelance" className="inline-block text-sm font-medium text-accent">
+            <Link to="/auth" className="inline-block text-sm font-medium text-accent">
               Créer un profil freelance →
             </Link>
           </div>

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CandidaturesRouteImport } from './routes/candidatures'
 import { Route as EntretiensRouteImport } from './routes/entretiens'
@@ -30,10 +31,29 @@ import { Route as MissionsIndexRouteImport } from './routes/missions.index'
 import { Route as MissionsMissionIdRouteImport } from './routes/missions.$missionId'
 import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
 import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
+import { Route as AuthenticatedEntrepriseDashboardRouteImport } from './routes/_authenticated/entreprise.dashboard'
+import { Route as AuthenticatedEntrepriseRecommandationsRouteImport } from './routes/_authenticated/entreprise.recommandations'
+import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
+import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
+import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
+import { Route as AuthenticatedFreelanceParametresRouteImport } from './routes/_authenticated/freelance.parametres'
+import { Route as AuthenticatedFreelanceProfilRouteImport } from './routes/_authenticated/freelance.profil'
+import { Route as AuthenticatedFreelanceRevenusRouteImport } from './routes/_authenticated/freelance.revenus'
+import { Route as AuthenticatedFreelanceSuiviRouteImport } from './routes/_authenticated/freelance.suivi'
+import { Route as AuthenticatedEntrepriseFreelancesIndexRouteImport } from './routes/_authenticated/entreprise.freelances.index'
+import { Route as AuthenticatedEntrepriseFreelancesFreelanceIdRouteImport } from './routes/_authenticated/entreprise.freelances.$freelanceId'
+import { Route as AuthenticatedEntrepriseMissionsIndexRouteImport } from './routes/_authenticated/entreprise.missions.index'
+import { Route as AuthenticatedEntrepriseMissionsMissionIdRouteImport } from './routes/_authenticated/entreprise.missions.$missionId'
+import { Route as AuthenticatedFreelanceMissionsIndexRouteImport } from './routes/_authenticated/freelance.missions.index'
+import { Route as AuthenticatedFreelanceMissionsMissionIdRouteImport } from './routes/_authenticated/freelance.missions.$missionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -136,6 +156,96 @@ const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
   path: '/onboarding/freelance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedEntrepriseDashboardRoute =
+  AuthenticatedEntrepriseDashboardRouteImport.update({
+    id: '/entreprise/dashboard',
+    path: '/entreprise/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseRecommandationsRoute =
+  AuthenticatedEntrepriseRecommandationsRouteImport.update({
+    id: '/entreprise/recommandations',
+    path: '/entreprise/recommandations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceCandidaturesRoute =
+  AuthenticatedFreelanceCandidaturesRouteImport.update({
+    id: '/freelance/candidatures',
+    path: '/freelance/candidatures',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceDashboardRoute =
+  AuthenticatedFreelanceDashboardRouteImport.update({
+    id: '/freelance/dashboard',
+    path: '/freelance/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceMessagerieRoute =
+  AuthenticatedFreelanceMessagerieRouteImport.update({
+    id: '/freelance/messagerie',
+    path: '/freelance/messagerie',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceParametresRoute =
+  AuthenticatedFreelanceParametresRouteImport.update({
+    id: '/freelance/parametres',
+    path: '/freelance/parametres',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceProfilRoute =
+  AuthenticatedFreelanceProfilRouteImport.update({
+    id: '/freelance/profil',
+    path: '/freelance/profil',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceRevenusRoute =
+  AuthenticatedFreelanceRevenusRouteImport.update({
+    id: '/freelance/revenus',
+    path: '/freelance/revenus',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceSuiviRoute =
+  AuthenticatedFreelanceSuiviRouteImport.update({
+    id: '/freelance/suivi',
+    path: '/freelance/suivi',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseFreelancesIndexRoute =
+  AuthenticatedEntrepriseFreelancesIndexRouteImport.update({
+    id: '/entreprise/freelances/',
+    path: '/entreprise/freelances/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseFreelancesFreelanceIdRoute =
+  AuthenticatedEntrepriseFreelancesFreelanceIdRouteImport.update({
+    id: '/entreprise/freelances/$freelanceId',
+    path: '/entreprise/freelances/$freelanceId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseMissionsIndexRoute =
+  AuthenticatedEntrepriseMissionsIndexRouteImport.update({
+    id: '/entreprise/missions/',
+    path: '/entreprise/missions/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseMissionsMissionIdRoute =
+  AuthenticatedEntrepriseMissionsMissionIdRouteImport.update({
+    id: '/entreprise/missions/$missionId',
+    path: '/entreprise/missions/$missionId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceMissionsIndexRoute =
+  AuthenticatedFreelanceMissionsIndexRouteImport.update({
+    id: '/freelance/missions/',
+    path: '/freelance/missions/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFreelanceMissionsMissionIdRoute =
+  AuthenticatedFreelanceMissionsMissionIdRouteImport.update({
+    id: '/freelance/missions/$missionId',
+    path: '/freelance/missions/$missionId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -159,6 +269,21 @@ export interface FileRoutesByFullPath {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances/': typeof FreelancesIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
+  '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
+  '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
+  '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
+  '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
+  '/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/entreprise/freelances/$freelanceId': typeof AuthenticatedEntrepriseFreelancesFreelanceIdRoute
+  '/entreprise/missions/$missionId': typeof AuthenticatedEntrepriseMissionsMissionIdRoute
+  '/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
+  '/entreprise/freelances/': typeof AuthenticatedEntrepriseFreelancesIndexRoute
+  '/entreprise/missions/': typeof AuthenticatedEntrepriseMissionsIndexRoute
+  '/freelance/missions/': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -182,10 +307,26 @@ export interface FileRoutesByTo {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances': typeof FreelancesIndexRoute
   '/missions': typeof MissionsIndexRoute
+  '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
+  '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
+  '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
+  '/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
+  '/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
+  '/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/entreprise/freelances/$freelanceId': typeof AuthenticatedEntrepriseFreelancesFreelanceIdRoute
+  '/entreprise/missions/$missionId': typeof AuthenticatedEntrepriseMissionsMissionIdRoute
+  '/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
+  '/entreprise/freelances': typeof AuthenticatedEntrepriseFreelancesIndexRoute
+  '/entreprise/missions': typeof AuthenticatedEntrepriseMissionsIndexRoute
+  '/freelance/missions': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/candidatures': typeof CandidaturesRoute
   '/entretiens': typeof EntretiensRoute
@@ -206,6 +347,21 @@ export interface FileRoutesById {
   '/onboarding/freelance': typeof OnboardingFreelanceRoute
   '/freelances/': typeof FreelancesIndexRoute
   '/missions/': typeof MissionsIndexRoute
+  '/_authenticated/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/_authenticated/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
+  '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
+  '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
+  '/_authenticated/freelance/parametres': typeof AuthenticatedFreelanceParametresRoute
+  '/_authenticated/freelance/profil': typeof AuthenticatedFreelanceProfilRoute
+  '/_authenticated/freelance/revenus': typeof AuthenticatedFreelanceRevenusRoute
+  '/_authenticated/freelance/suivi': typeof AuthenticatedFreelanceSuiviRoute
+  '/_authenticated/entreprise/freelances/$freelanceId': typeof AuthenticatedEntrepriseFreelancesFreelanceIdRoute
+  '/_authenticated/entreprise/missions/$missionId': typeof AuthenticatedEntrepriseMissionsMissionIdRoute
+  '/_authenticated/freelance/missions/$missionId': typeof AuthenticatedFreelanceMissionsMissionIdRoute
+  '/_authenticated/entreprise/freelances/': typeof AuthenticatedEntrepriseFreelancesIndexRoute
+  '/_authenticated/entreprise/missions/': typeof AuthenticatedEntrepriseMissionsIndexRoute
+  '/_authenticated/freelance/missions/': typeof AuthenticatedFreelanceMissionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -231,6 +387,21 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances/'
     | '/missions/'
+    | '/entreprise/dashboard'
+    | '/entreprise/recommandations'
+    | '/freelance/candidatures'
+    | '/freelance/dashboard'
+    | '/freelance/messagerie'
+    | '/freelance/parametres'
+    | '/freelance/profil'
+    | '/freelance/revenus'
+    | '/freelance/suivi'
+    | '/entreprise/freelances/$freelanceId'
+    | '/entreprise/missions/$missionId'
+    | '/freelance/missions/$missionId'
+    | '/entreprise/freelances/'
+    | '/entreprise/missions/'
+    | '/freelance/missions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -254,9 +425,25 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances'
     | '/missions'
+    | '/entreprise/dashboard'
+    | '/entreprise/recommandations'
+    | '/freelance/candidatures'
+    | '/freelance/dashboard'
+    | '/freelance/messagerie'
+    | '/freelance/parametres'
+    | '/freelance/profil'
+    | '/freelance/revenus'
+    | '/freelance/suivi'
+    | '/entreprise/freelances/$freelanceId'
+    | '/entreprise/missions/$missionId'
+    | '/freelance/missions/$missionId'
+    | '/entreprise/freelances'
+    | '/entreprise/missions'
+    | '/freelance/missions'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/candidatures'
     | '/entretiens'
@@ -277,10 +464,26 @@ export interface FileRouteTypes {
     | '/onboarding/freelance'
     | '/freelances/'
     | '/missions/'
+    | '/_authenticated/entreprise/dashboard'
+    | '/_authenticated/entreprise/recommandations'
+    | '/_authenticated/freelance/candidatures'
+    | '/_authenticated/freelance/dashboard'
+    | '/_authenticated/freelance/messagerie'
+    | '/_authenticated/freelance/parametres'
+    | '/_authenticated/freelance/profil'
+    | '/_authenticated/freelance/revenus'
+    | '/_authenticated/freelance/suivi'
+    | '/_authenticated/entreprise/freelances/$freelanceId'
+    | '/_authenticated/entreprise/missions/$missionId'
+    | '/_authenticated/freelance/missions/$missionId'
+    | '/_authenticated/entreprise/freelances/'
+    | '/_authenticated/entreprise/missions/'
+    | '/_authenticated/freelance/missions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   CandidaturesRoute: typeof CandidaturesRoute
   EntretiensRoute: typeof EntretiensRoute
@@ -310,6 +513,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -452,11 +662,164 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingFreelanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/entreprise/dashboard': {
+      id: '/_authenticated/entreprise/dashboard'
+      path: '/entreprise/dashboard'
+      fullPath: '/entreprise/dashboard'
+      preLoaderRoute: typeof AuthenticatedEntrepriseDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/recommandations': {
+      id: '/_authenticated/entreprise/recommandations'
+      path: '/entreprise/recommandations'
+      fullPath: '/entreprise/recommandations'
+      preLoaderRoute: typeof AuthenticatedEntrepriseRecommandationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/candidatures': {
+      id: '/_authenticated/freelance/candidatures'
+      path: '/freelance/candidatures'
+      fullPath: '/freelance/candidatures'
+      preLoaderRoute: typeof AuthenticatedFreelanceCandidaturesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/dashboard': {
+      id: '/_authenticated/freelance/dashboard'
+      path: '/freelance/dashboard'
+      fullPath: '/freelance/dashboard'
+      preLoaderRoute: typeof AuthenticatedFreelanceDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/messagerie': {
+      id: '/_authenticated/freelance/messagerie'
+      path: '/freelance/messagerie'
+      fullPath: '/freelance/messagerie'
+      preLoaderRoute: typeof AuthenticatedFreelanceMessagerieRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/parametres': {
+      id: '/_authenticated/freelance/parametres'
+      path: '/freelance/parametres'
+      fullPath: '/freelance/parametres'
+      preLoaderRoute: typeof AuthenticatedFreelanceParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/profil': {
+      id: '/_authenticated/freelance/profil'
+      path: '/freelance/profil'
+      fullPath: '/freelance/profil'
+      preLoaderRoute: typeof AuthenticatedFreelanceProfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/revenus': {
+      id: '/_authenticated/freelance/revenus'
+      path: '/freelance/revenus'
+      fullPath: '/freelance/revenus'
+      preLoaderRoute: typeof AuthenticatedFreelanceRevenusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/suivi': {
+      id: '/_authenticated/freelance/suivi'
+      path: '/freelance/suivi'
+      fullPath: '/freelance/suivi'
+      preLoaderRoute: typeof AuthenticatedFreelanceSuiviRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/freelances/': {
+      id: '/_authenticated/entreprise/freelances/'
+      path: '/entreprise/freelances'
+      fullPath: '/entreprise/freelances/'
+      preLoaderRoute: typeof AuthenticatedEntrepriseFreelancesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/freelances/$freelanceId': {
+      id: '/_authenticated/entreprise/freelances/$freelanceId'
+      path: '/entreprise/freelances/$freelanceId'
+      fullPath: '/entreprise/freelances/$freelanceId'
+      preLoaderRoute: typeof AuthenticatedEntrepriseFreelancesFreelanceIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/missions/': {
+      id: '/_authenticated/entreprise/missions/'
+      path: '/entreprise/missions'
+      fullPath: '/entreprise/missions/'
+      preLoaderRoute: typeof AuthenticatedEntrepriseMissionsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/missions/$missionId': {
+      id: '/_authenticated/entreprise/missions/$missionId'
+      path: '/entreprise/missions/$missionId'
+      fullPath: '/entreprise/missions/$missionId'
+      preLoaderRoute: typeof AuthenticatedEntrepriseMissionsMissionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/missions/': {
+      id: '/_authenticated/freelance/missions/'
+      path: '/freelance/missions'
+      fullPath: '/freelance/missions/'
+      preLoaderRoute: typeof AuthenticatedFreelanceMissionsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/freelance/missions/$missionId': {
+      id: '/_authenticated/freelance/missions/$missionId'
+      path: '/freelance/missions/$missionId'
+      fullPath: '/freelance/missions/$missionId'
+      preLoaderRoute: typeof AuthenticatedFreelanceMissionsMissionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedEntrepriseDashboardRoute: typeof AuthenticatedEntrepriseDashboardRoute
+  AuthenticatedEntrepriseRecommandationsRoute: typeof AuthenticatedEntrepriseRecommandationsRoute
+  AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
+  AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
+  AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
+  AuthenticatedFreelanceParametresRoute: typeof AuthenticatedFreelanceParametresRoute
+  AuthenticatedFreelanceProfilRoute: typeof AuthenticatedFreelanceProfilRoute
+  AuthenticatedFreelanceRevenusRoute: typeof AuthenticatedFreelanceRevenusRoute
+  AuthenticatedFreelanceSuiviRoute: typeof AuthenticatedFreelanceSuiviRoute
+  AuthenticatedEntrepriseFreelancesFreelanceIdRoute: typeof AuthenticatedEntrepriseFreelancesFreelanceIdRoute
+  AuthenticatedEntrepriseMissionsMissionIdRoute: typeof AuthenticatedEntrepriseMissionsMissionIdRoute
+  AuthenticatedFreelanceMissionsMissionIdRoute: typeof AuthenticatedFreelanceMissionsMissionIdRoute
+  AuthenticatedEntrepriseFreelancesIndexRoute: typeof AuthenticatedEntrepriseFreelancesIndexRoute
+  AuthenticatedEntrepriseMissionsIndexRoute: typeof AuthenticatedEntrepriseMissionsIndexRoute
+  AuthenticatedFreelanceMissionsIndexRoute: typeof AuthenticatedFreelanceMissionsIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedEntrepriseDashboardRoute: AuthenticatedEntrepriseDashboardRoute,
+  AuthenticatedEntrepriseRecommandationsRoute:
+    AuthenticatedEntrepriseRecommandationsRoute,
+  AuthenticatedFreelanceCandidaturesRoute:
+    AuthenticatedFreelanceCandidaturesRoute,
+  AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
+  AuthenticatedFreelanceMessagerieRoute: AuthenticatedFreelanceMessagerieRoute,
+  AuthenticatedFreelanceParametresRoute: AuthenticatedFreelanceParametresRoute,
+  AuthenticatedFreelanceProfilRoute: AuthenticatedFreelanceProfilRoute,
+  AuthenticatedFreelanceRevenusRoute: AuthenticatedFreelanceRevenusRoute,
+  AuthenticatedFreelanceSuiviRoute: AuthenticatedFreelanceSuiviRoute,
+  AuthenticatedEntrepriseFreelancesFreelanceIdRoute:
+    AuthenticatedEntrepriseFreelancesFreelanceIdRoute,
+  AuthenticatedEntrepriseMissionsMissionIdRoute:
+    AuthenticatedEntrepriseMissionsMissionIdRoute,
+  AuthenticatedFreelanceMissionsMissionIdRoute:
+    AuthenticatedFreelanceMissionsMissionIdRoute,
+  AuthenticatedEntrepriseFreelancesIndexRoute:
+    AuthenticatedEntrepriseFreelancesIndexRoute,
+  AuthenticatedEntrepriseMissionsIndexRoute:
+    AuthenticatedEntrepriseMissionsIndexRoute,
+  AuthenticatedFreelanceMissionsIndexRoute:
+    AuthenticatedFreelanceMissionsIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   CandidaturesRoute: CandidaturesRoute,
   EntretiensRoute: EntretiensRoute,
