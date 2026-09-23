@@ -128,7 +128,7 @@ function Recommandations() {
     }
 
     await qc.invalidateQueries({ queryKey: ["missions"] });
-    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } });
+    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } as never });
   }
 
   async function contact(id: string) {

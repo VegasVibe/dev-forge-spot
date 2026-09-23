@@ -103,7 +103,7 @@ function MesMissions() {
     setSaving(false);
     if (error) return;
     await qc.invalidateQueries({ queryKey: ["missions"] });
-    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } });
+    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } as never });
   }
 
   return (

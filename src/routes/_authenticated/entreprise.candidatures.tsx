@@ -33,7 +33,7 @@ function CandidaturesPage() {
   const me = useMe();
   const userId = me.data?.userId;
   const qc = useQueryClient();
-  const { data: applications = [] } = useApplications({ companyId: userId });
+  const { data: applications = [] } = useApplications({ companyId: userId ?? null });
   const { data: missions = [] } = useMissions();
   const { data: freelances = [] } = useFreelances();
 
