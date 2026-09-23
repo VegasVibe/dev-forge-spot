@@ -33,8 +33,8 @@ function FreelanceDashboard() {
   const qc = useQueryClient();
   const { data: profile } = useMyFreelanceProfile(userId);
   const { data: missions = [] } = useMissions();
-  const { data: applications = [] } = useApplications({ freelanceUserId: userId ?? undefined });
-  const { data: payments = [] } = usePayments({ freelanceId: profile?.id });
+  const { data: applications = [] } = useApplications(userId ? { freelanceUserId: userId } : undefined);
+  const { data: payments = [] } = usePayments(profile?.id ? { freelanceId: profile.id } : undefined);
 
   useEffect(() => {
     if (!userId || profile) return;

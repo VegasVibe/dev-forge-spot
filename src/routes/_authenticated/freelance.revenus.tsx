@@ -26,7 +26,7 @@ const stateClass = {
 function FreelanceRevenus() {
   const { data: me } = useMe();
   const { data: profile } = useMyFreelanceProfile(me?.userId);
-  const { data: payments = [] } = usePayments({ freelanceId: profile?.id });
+  const { data: payments = [] } = usePayments(profile?.id ? { freelanceId: profile.id } : undefined);
 
   const total = payments.reduce((s, p) => s + p.amount, 0);
   const paid = payments.filter((p) => p.state === "paid").reduce((s, p) => s + p.amount, 0);

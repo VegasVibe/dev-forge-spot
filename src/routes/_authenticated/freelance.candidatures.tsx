@@ -25,7 +25,7 @@ const statusClass: Record<ApplicationStatus, string> = {
 
 function FreelanceCandidatures() {
   const { data: me } = useMe();
-  const { data: applications = [] } = useApplications({ freelanceUserId: me?.userId ?? undefined });
+  const { data: applications = [] } = useApplications(me?.userId ? { freelanceUserId: me.userId } : undefined);
   const { data: missions = [] } = useMissions();
 
   return (

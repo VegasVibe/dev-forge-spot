@@ -52,6 +52,7 @@ function FreelanceMissionDetail() {
   }
 
   if (!mission) throw notFound();
+  const m = mission;
 
   const myApplication = applications.find((a) => a.freelance_user_id === userId);
 
@@ -66,22 +67,22 @@ function FreelanceMissionDetail() {
         myProfile = await ensureFreelanceProfile(userId, me?.profile?.full_name ?? "");
       }
       const { error } = await supabase.from("applications").insert({
-        mission_id: mission.id,
-        mission_title: mission.title,
+        mission_id: m.id,
+        mission_title: m.title,
         freelance_id: myProfile.id,
         freelance_user_id: userId,
-        company_id: mission.owner_id,
+        company_id: m.owner_id,
         status: "recue",
         pitch,
         rate,
         availability,
       });
       if (error) throw error;
-      if (mission.owner_id) {
+      if (m.owner_id) {
         await pushNotification({
-          userId: mission.owner_id,
+          userId: m.owner_id,
           title: "Nouvelle candidature",
-          detail: `${myProfile.name} a postulé à « ${mission.title} »`,
+          detail: `${myProfile.name} a postulé à « ${m.title} »`,
           kind: "candidature",
         });
       }
@@ -104,11 +105,11 @@ function FreelanceMissionDetail() {
       qc.invalidateQueries({ queryKey: ["my-freelance", userId] });
     }
     await sendMessage({
-      companyId: mission.owner_id,
+      companyId: m.owner_id,
       freelanceId: myProfile.id,
       freelanceUserId: userId,
       sender: "freelance",
-      subject: mission.title,
+      subject: m.title,
       body: messageBody,
     });
     setMessageBody("");
