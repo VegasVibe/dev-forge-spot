@@ -128,7 +128,7 @@ function Recommandations() {
     }
 
     await qc.invalidateQueries({ queryKey: ["missions"] });
-    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } });
+    navigate({ to: "/entreprise/missions/$missionId" as never, params: { missionId: id } as never });
   }
 
   async function contact(id: string) {
@@ -258,7 +258,7 @@ function Recommandations() {
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="label-mono">#{i + 1}</span>
-                          <Link to={"/entreprise/freelances/$freelanceId" as never} params={{ freelanceId: f.id }} className="font-display font-semibold tracking-tight hover:text-accent transition-colors">
+                          <Link to={"/entreprise/freelances/$freelanceId" as never} params={{ freelanceId: f.id } as never} className="font-display font-semibold tracking-tight hover:text-accent transition-colors">
                             {f.name}
                           </Link>
                           <span className="text-xs text-ink-soft">{f.title}</span>

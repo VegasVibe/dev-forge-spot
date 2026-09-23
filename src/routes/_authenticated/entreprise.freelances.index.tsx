@@ -86,7 +86,7 @@ function FreelancesPage() {
           <Link
             key={f.id}
             to={"/entreprise/freelances/$freelanceId" as never}
-            params={{ freelanceId: f.id }}
+            params={{ freelanceId: f.id } as never}
             className="glass rounded-2xl ring-1 ring-border p-5 hover:ring-accent/30 transition-colors"
           >
             <div className="flex items-center gap-3">

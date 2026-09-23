@@ -122,7 +122,7 @@ function FreelanceDetail() {
                   <Link
                     key={m.id}
                     to={"/entreprise/missions/$missionId" as never}
-                    params={{ missionId: m.id }}
+                    params={{ missionId: m.id } as never}
                     className="flex items-center justify-between gap-3 py-3 first:pt-0 group"
                   >
                     <div>

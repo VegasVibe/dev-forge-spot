@@ -92,7 +92,7 @@ function DashboardEntreprise() {
                   <Link
                     key={m.id}
                     to={"/entreprise/missions/$missionId" as never}
-                    params={{ missionId: m.id }}
+                    params={{ missionId: m.id } as never}
                     className="rounded-xl bg-card/70 ring-1 ring-border p-4 hover:ring-accent/30 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -142,7 +142,7 @@ function DashboardEntreprise() {
                   <Link
                     key={f.id}
                     to={"/entreprise/freelances/$freelanceId" as never}
-                    params={{ freelanceId: f.id }}
+                    params={{ freelanceId: f.id } as never}
                     className="flex items-center gap-3 py-3 first:pt-0 group"
                   >
                     <Avatar initials={f.initials} size="sm" />

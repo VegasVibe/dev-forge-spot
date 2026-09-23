@@ -275,7 +275,7 @@ function MissionDetail() {
                     <div className="flex items-center justify-between gap-2">
                       <Link
                         to={"/entreprise/freelances/$freelanceId" as never}
-                        params={{ freelanceId: a.freelance_id }}
+                        params={{ freelanceId: a.freelance_id } as never}
                         className="font-medium hover:text-accent transition-colors"
                       >
                         {a.freelance_id}
@@ -335,7 +335,7 @@ function MissionDetail() {
             {freelance ? (
               <Link
                 to={"/entreprise/freelances/$freelanceId" as never}
-                params={{ freelanceId: freelance.id }}
+                params={{ freelanceId: freelance.id } as never}
                 className="mt-4 flex items-center gap-3 group"
               >
                 <Avatar initials={freelance.initials} />

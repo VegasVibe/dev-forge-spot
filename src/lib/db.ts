@@ -261,7 +261,12 @@ export function useMission(id: string) {
   });
 }
 
-export function useApplications(filter?: { missionId?: string; companyId?: string; freelanceUserId?: string }) {
+export function useApplications(filter?: {
+  missionId?: string | null;
+  companyId?: string | null;
+  freelanceUserId?: string | null;
+}) {
+
   return useQuery({
     queryKey: ["applications", filter],
     queryFn: async () => {

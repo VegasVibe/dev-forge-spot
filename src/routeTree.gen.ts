@@ -12,27 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as CandidaturesRouteImport } from './routes/candidatures'
-import { Route as EntretiensRouteImport } from './routes/entretiens'
-import { Route as HistoriqueRouteImport } from './routes/historique'
-import { Route as MessagerieRouteImport } from './routes/messagerie'
-import { Route as PaiementsRouteImport } from './routes/paiements'
-import { Route as ParametresRouteImport } from './routes/parametres'
 import { Route as ProduitRouteImport } from './routes/produit'
-import { Route as RecommandationsRouteImport } from './routes/recommandations'
-import { Route as ShortlistRouteImport } from './routes/shortlist'
-import { Route as SuiviRouteImport } from './routes/suivi'
 import { Route as TarifsRouteImport } from './routes/tarifs'
-import { Route as DashboardEntrepriseRouteImport } from './routes/dashboard.entreprise'
-import { Route as DashboardFreelanceRouteImport } from './routes/dashboard.freelance'
-import { Route as FreelancesIndexRouteImport } from './routes/freelances.index'
-import { Route as FreelancesFreelanceIdRouteImport } from './routes/freelances.$freelanceId'
-import { Route as MissionsIndexRouteImport } from './routes/missions.index'
-import { Route as MissionsMissionIdRouteImport } from './routes/missions.$missionId'
-import { Route as OnboardingEntrepriseRouteImport } from './routes/onboarding.entreprise'
-import { Route as OnboardingFreelanceRouteImport } from './routes/onboarding.freelance'
+import { Route as AuthenticatedEntrepriseCandidaturesRouteImport } from './routes/_authenticated/entreprise.candidatures'
 import { Route as AuthenticatedEntrepriseDashboardRouteImport } from './routes/_authenticated/entreprise.dashboard'
+import { Route as AuthenticatedEntrepriseEntretiensRouteImport } from './routes/_authenticated/entreprise.entretiens'
+import { Route as AuthenticatedEntrepriseHistoriqueRouteImport } from './routes/_authenticated/entreprise.historique'
+import { Route as AuthenticatedEntrepriseMessagerieRouteImport } from './routes/_authenticated/entreprise.messagerie'
+import { Route as AuthenticatedEntreprisePaiementsRouteImport } from './routes/_authenticated/entreprise.paiements'
+import { Route as AuthenticatedEntrepriseParametresRouteImport } from './routes/_authenticated/entreprise.parametres'
 import { Route as AuthenticatedEntrepriseRecommandationsRouteImport } from './routes/_authenticated/entreprise.recommandations'
+import { Route as AuthenticatedEntrepriseShortlistRouteImport } from './routes/_authenticated/entreprise.shortlist'
 import { Route as AuthenticatedFreelanceCandidaturesRouteImport } from './routes/_authenticated/freelance.candidatures'
 import { Route as AuthenticatedFreelanceDashboardRouteImport } from './routes/_authenticated/freelance.dashboard'
 import { Route as AuthenticatedFreelanceMessagerieRouteImport } from './routes/_authenticated/freelance.messagerie'
@@ -61,54 +51,9 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CandidaturesRoute = CandidaturesRouteImport.update({
-  id: '/candidatures',
-  path: '/candidatures',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EntretiensRoute = EntretiensRouteImport.update({
-  id: '/entretiens',
-  path: '/entretiens',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoriqueRoute = HistoriqueRouteImport.update({
-  id: '/historique',
-  path: '/historique',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MessagerieRoute = MessagerieRouteImport.update({
-  id: '/messagerie',
-  path: '/messagerie',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PaiementsRoute = PaiementsRouteImport.update({
-  id: '/paiements',
-  path: '/paiements',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ParametresRoute = ParametresRouteImport.update({
-  id: '/parametres',
-  path: '/parametres',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProduitRoute = ProduitRouteImport.update({
   id: '/produit',
   path: '/produit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RecommandationsRoute = RecommandationsRouteImport.update({
-  id: '/recommandations',
-  path: '/recommandations',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShortlistRoute = ShortlistRouteImport.update({
-  id: '/shortlist',
-  path: '/shortlist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SuiviRoute = SuiviRouteImport.update({
-  id: '/suivi',
-  path: '/suivi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TarifsRoute = TarifsRouteImport.update({
@@ -116,56 +61,58 @@ const TarifsRoute = TarifsRouteImport.update({
   path: '/tarifs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardEntrepriseRoute = DashboardEntrepriseRouteImport.update({
-  id: '/dashboard/entreprise',
-  path: '/dashboard/entreprise',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardFreelanceRoute = DashboardFreelanceRouteImport.update({
-  id: '/dashboard/freelance',
-  path: '/dashboard/freelance',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreelancesIndexRoute = FreelancesIndexRouteImport.update({
-  id: '/freelances/',
-  path: '/freelances/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreelancesFreelanceIdRoute = FreelancesFreelanceIdRouteImport.update({
-  id: '/freelances/$freelanceId',
-  path: '/freelances/$freelanceId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MissionsIndexRoute = MissionsIndexRouteImport.update({
-  id: '/missions/',
-  path: '/missions/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MissionsMissionIdRoute = MissionsMissionIdRouteImport.update({
-  id: '/missions/$missionId',
-  path: '/missions/$missionId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingEntrepriseRoute = OnboardingEntrepriseRouteImport.update({
-  id: '/onboarding/entreprise',
-  path: '/onboarding/entreprise',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingFreelanceRoute = OnboardingFreelanceRouteImport.update({
-  id: '/onboarding/freelance',
-  path: '/onboarding/freelance',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedEntrepriseCandidaturesRoute =
+  AuthenticatedEntrepriseCandidaturesRouteImport.update({
+    id: '/entreprise/candidatures',
+    path: '/entreprise/candidatures',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEntrepriseDashboardRoute =
   AuthenticatedEntrepriseDashboardRouteImport.update({
     id: '/entreprise/dashboard',
     path: '/entreprise/dashboard',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedEntrepriseEntretiensRoute =
+  AuthenticatedEntrepriseEntretiensRouteImport.update({
+    id: '/entreprise/entretiens',
+    path: '/entreprise/entretiens',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseHistoriqueRoute =
+  AuthenticatedEntrepriseHistoriqueRouteImport.update({
+    id: '/entreprise/historique',
+    path: '/entreprise/historique',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseMessagerieRoute =
+  AuthenticatedEntrepriseMessagerieRouteImport.update({
+    id: '/entreprise/messagerie',
+    path: '/entreprise/messagerie',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntreprisePaiementsRoute =
+  AuthenticatedEntreprisePaiementsRouteImport.update({
+    id: '/entreprise/paiements',
+    path: '/entreprise/paiements',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseParametresRoute =
+  AuthenticatedEntrepriseParametresRouteImport.update({
+    id: '/entreprise/parametres',
+    path: '/entreprise/parametres',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEntrepriseRecommandationsRoute =
   AuthenticatedEntrepriseRecommandationsRouteImport.update({
     id: '/entreprise/recommandations',
     path: '/entreprise/recommandations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEntrepriseShortlistRoute =
+  AuthenticatedEntrepriseShortlistRouteImport.update({
+    id: '/entreprise/shortlist',
+    path: '/entreprise/shortlist',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFreelanceCandidaturesRoute =
@@ -250,27 +197,17 @@ const AuthenticatedFreelanceMissionsMissionIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/candidatures': typeof CandidaturesRoute
-  '/entretiens': typeof EntretiensRoute
-  '/historique': typeof HistoriqueRoute
-  '/messagerie': typeof MessagerieRoute
-  '/paiements': typeof PaiementsRoute
-  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
-  '/recommandations': typeof RecommandationsRoute
-  '/shortlist': typeof ShortlistRoute
-  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
-  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
-  '/dashboard/freelance': typeof DashboardFreelanceRoute
-  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
-  '/missions/$missionId': typeof MissionsMissionIdRoute
-  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
-  '/onboarding/freelance': typeof OnboardingFreelanceRoute
-  '/freelances/': typeof FreelancesIndexRoute
-  '/missions/': typeof MissionsIndexRoute
+  '/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -288,27 +225,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/candidatures': typeof CandidaturesRoute
-  '/entretiens': typeof EntretiensRoute
-  '/historique': typeof HistoriqueRoute
-  '/messagerie': typeof MessagerieRoute
-  '/paiements': typeof PaiementsRoute
-  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
-  '/recommandations': typeof RecommandationsRoute
-  '/shortlist': typeof ShortlistRoute
-  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
-  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
-  '/dashboard/freelance': typeof DashboardFreelanceRoute
-  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
-  '/missions/$missionId': typeof MissionsMissionIdRoute
-  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
-  '/onboarding/freelance': typeof OnboardingFreelanceRoute
-  '/freelances': typeof FreelancesIndexRoute
-  '/missions': typeof MissionsIndexRoute
+  '/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -328,27 +255,17 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/candidatures': typeof CandidaturesRoute
-  '/entretiens': typeof EntretiensRoute
-  '/historique': typeof HistoriqueRoute
-  '/messagerie': typeof MessagerieRoute
-  '/paiements': typeof PaiementsRoute
-  '/parametres': typeof ParametresRoute
   '/produit': typeof ProduitRoute
-  '/recommandations': typeof RecommandationsRoute
-  '/shortlist': typeof ShortlistRoute
-  '/suivi': typeof SuiviRoute
   '/tarifs': typeof TarifsRoute
-  '/dashboard/entreprise': typeof DashboardEntrepriseRoute
-  '/dashboard/freelance': typeof DashboardFreelanceRoute
-  '/freelances/$freelanceId': typeof FreelancesFreelanceIdRoute
-  '/missions/$missionId': typeof MissionsMissionIdRoute
-  '/onboarding/entreprise': typeof OnboardingEntrepriseRoute
-  '/onboarding/freelance': typeof OnboardingFreelanceRoute
-  '/freelances/': typeof FreelancesIndexRoute
-  '/missions/': typeof MissionsIndexRoute
+  '/_authenticated/entreprise/candidatures': typeof AuthenticatedEntrepriseCandidaturesRoute
   '/_authenticated/entreprise/dashboard': typeof AuthenticatedEntrepriseDashboardRoute
+  '/_authenticated/entreprise/entretiens': typeof AuthenticatedEntrepriseEntretiensRoute
+  '/_authenticated/entreprise/historique': typeof AuthenticatedEntrepriseHistoriqueRoute
+  '/_authenticated/entreprise/messagerie': typeof AuthenticatedEntrepriseMessagerieRoute
+  '/_authenticated/entreprise/paiements': typeof AuthenticatedEntreprisePaiementsRoute
+  '/_authenticated/entreprise/parametres': typeof AuthenticatedEntrepriseParametresRoute
   '/_authenticated/entreprise/recommandations': typeof AuthenticatedEntrepriseRecommandationsRoute
+  '/_authenticated/entreprise/shortlist': typeof AuthenticatedEntrepriseShortlistRoute
   '/_authenticated/freelance/candidatures': typeof AuthenticatedFreelanceCandidaturesRoute
   '/_authenticated/freelance/dashboard': typeof AuthenticatedFreelanceDashboardRoute
   '/_authenticated/freelance/messagerie': typeof AuthenticatedFreelanceMessagerieRoute
@@ -368,27 +285,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
-    | '/candidatures'
-    | '/entretiens'
-    | '/historique'
-    | '/messagerie'
-    | '/paiements'
-    | '/parametres'
     | '/produit'
-    | '/recommandations'
-    | '/shortlist'
-    | '/suivi'
     | '/tarifs'
-    | '/dashboard/entreprise'
-    | '/dashboard/freelance'
-    | '/freelances/$freelanceId'
-    | '/missions/$missionId'
-    | '/onboarding/entreprise'
-    | '/onboarding/freelance'
-    | '/freelances/'
-    | '/missions/'
+    | '/entreprise/candidatures'
     | '/entreprise/dashboard'
+    | '/entreprise/entretiens'
+    | '/entreprise/historique'
+    | '/entreprise/messagerie'
+    | '/entreprise/paiements'
+    | '/entreprise/parametres'
     | '/entreprise/recommandations'
+    | '/entreprise/shortlist'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -406,27 +313,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
-    | '/candidatures'
-    | '/entretiens'
-    | '/historique'
-    | '/messagerie'
-    | '/paiements'
-    | '/parametres'
     | '/produit'
-    | '/recommandations'
-    | '/shortlist'
-    | '/suivi'
     | '/tarifs'
-    | '/dashboard/entreprise'
-    | '/dashboard/freelance'
-    | '/freelances/$freelanceId'
-    | '/missions/$missionId'
-    | '/onboarding/entreprise'
-    | '/onboarding/freelance'
-    | '/freelances'
-    | '/missions'
+    | '/entreprise/candidatures'
     | '/entreprise/dashboard'
+    | '/entreprise/entretiens'
+    | '/entreprise/historique'
+    | '/entreprise/messagerie'
+    | '/entreprise/paiements'
+    | '/entreprise/parametres'
     | '/entreprise/recommandations'
+    | '/entreprise/shortlist'
     | '/freelance/candidatures'
     | '/freelance/dashboard'
     | '/freelance/messagerie'
@@ -445,27 +342,17 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
-    | '/candidatures'
-    | '/entretiens'
-    | '/historique'
-    | '/messagerie'
-    | '/paiements'
-    | '/parametres'
     | '/produit'
-    | '/recommandations'
-    | '/shortlist'
-    | '/suivi'
     | '/tarifs'
-    | '/dashboard/entreprise'
-    | '/dashboard/freelance'
-    | '/freelances/$freelanceId'
-    | '/missions/$missionId'
-    | '/onboarding/entreprise'
-    | '/onboarding/freelance'
-    | '/freelances/'
-    | '/missions/'
+    | '/_authenticated/entreprise/candidatures'
     | '/_authenticated/entreprise/dashboard'
+    | '/_authenticated/entreprise/entretiens'
+    | '/_authenticated/entreprise/historique'
+    | '/_authenticated/entreprise/messagerie'
+    | '/_authenticated/entreprise/paiements'
+    | '/_authenticated/entreprise/parametres'
     | '/_authenticated/entreprise/recommandations'
+    | '/_authenticated/entreprise/shortlist'
     | '/_authenticated/freelance/candidatures'
     | '/_authenticated/freelance/dashboard'
     | '/_authenticated/freelance/messagerie'
@@ -485,25 +372,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
-  CandidaturesRoute: typeof CandidaturesRoute
-  EntretiensRoute: typeof EntretiensRoute
-  HistoriqueRoute: typeof HistoriqueRoute
-  MessagerieRoute: typeof MessagerieRoute
-  PaiementsRoute: typeof PaiementsRoute
-  ParametresRoute: typeof ParametresRoute
   ProduitRoute: typeof ProduitRoute
-  RecommandationsRoute: typeof RecommandationsRoute
-  ShortlistRoute: typeof ShortlistRoute
-  SuiviRoute: typeof SuiviRoute
   TarifsRoute: typeof TarifsRoute
-  DashboardEntrepriseRoute: typeof DashboardEntrepriseRoute
-  DashboardFreelanceRoute: typeof DashboardFreelanceRoute
-  FreelancesFreelanceIdRoute: typeof FreelancesFreelanceIdRoute
-  MissionsMissionIdRoute: typeof MissionsMissionIdRoute
-  OnboardingEntrepriseRoute: typeof OnboardingEntrepriseRoute
-  OnboardingFreelanceRoute: typeof OnboardingFreelanceRoute
-  FreelancesIndexRoute: typeof FreelancesIndexRoute
-  MissionsIndexRoute: typeof MissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -529,74 +399,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/candidatures': {
-      id: '/candidatures'
-      path: '/candidatures'
-      fullPath: '/candidatures'
-      preLoaderRoute: typeof CandidaturesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/entretiens': {
-      id: '/entretiens'
-      path: '/entretiens'
-      fullPath: '/entretiens'
-      preLoaderRoute: typeof EntretiensRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/historique': {
-      id: '/historique'
-      path: '/historique'
-      fullPath: '/historique'
-      preLoaderRoute: typeof HistoriqueRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/messagerie': {
-      id: '/messagerie'
-      path: '/messagerie'
-      fullPath: '/messagerie'
-      preLoaderRoute: typeof MessagerieRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/paiements': {
-      id: '/paiements'
-      path: '/paiements'
-      fullPath: '/paiements'
-      preLoaderRoute: typeof PaiementsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/parametres': {
-      id: '/parametres'
-      path: '/parametres'
-      fullPath: '/parametres'
-      preLoaderRoute: typeof ParametresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/produit': {
       id: '/produit'
       path: '/produit'
       fullPath: '/produit'
       preLoaderRoute: typeof ProduitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/recommandations': {
-      id: '/recommandations'
-      path: '/recommandations'
-      fullPath: '/recommandations'
-      preLoaderRoute: typeof RecommandationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shortlist': {
-      id: '/shortlist'
-      path: '/shortlist'
-      fullPath: '/shortlist'
-      preLoaderRoute: typeof ShortlistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/suivi': {
-      id: '/suivi'
-      path: '/suivi'
-      fullPath: '/suivi'
-      preLoaderRoute: typeof SuiviRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tarifs': {
@@ -606,61 +413,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TarifsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/entreprise': {
-      id: '/dashboard/entreprise'
-      path: '/dashboard/entreprise'
-      fullPath: '/dashboard/entreprise'
-      preLoaderRoute: typeof DashboardEntrepriseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/freelance': {
-      id: '/dashboard/freelance'
-      path: '/dashboard/freelance'
-      fullPath: '/dashboard/freelance'
-      preLoaderRoute: typeof DashboardFreelanceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/freelances/': {
-      id: '/freelances/'
-      path: '/freelances'
-      fullPath: '/freelances/'
-      preLoaderRoute: typeof FreelancesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/freelances/$freelanceId': {
-      id: '/freelances/$freelanceId'
-      path: '/freelances/$freelanceId'
-      fullPath: '/freelances/$freelanceId'
-      preLoaderRoute: typeof FreelancesFreelanceIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/missions/': {
-      id: '/missions/'
-      path: '/missions'
-      fullPath: '/missions/'
-      preLoaderRoute: typeof MissionsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/missions/$missionId': {
-      id: '/missions/$missionId'
-      path: '/missions/$missionId'
-      fullPath: '/missions/$missionId'
-      preLoaderRoute: typeof MissionsMissionIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/entreprise': {
-      id: '/onboarding/entreprise'
-      path: '/onboarding/entreprise'
-      fullPath: '/onboarding/entreprise'
-      preLoaderRoute: typeof OnboardingEntrepriseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/freelance': {
-      id: '/onboarding/freelance'
-      path: '/onboarding/freelance'
-      fullPath: '/onboarding/freelance'
-      preLoaderRoute: typeof OnboardingFreelanceRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/entreprise/candidatures': {
+      id: '/_authenticated/entreprise/candidatures'
+      path: '/entreprise/candidatures'
+      fullPath: '/entreprise/candidatures'
+      preLoaderRoute: typeof AuthenticatedEntrepriseCandidaturesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/entreprise/dashboard': {
       id: '/_authenticated/entreprise/dashboard'
@@ -669,11 +427,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEntrepriseDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/entreprise/entretiens': {
+      id: '/_authenticated/entreprise/entretiens'
+      path: '/entreprise/entretiens'
+      fullPath: '/entreprise/entretiens'
+      preLoaderRoute: typeof AuthenticatedEntrepriseEntretiensRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/historique': {
+      id: '/_authenticated/entreprise/historique'
+      path: '/entreprise/historique'
+      fullPath: '/entreprise/historique'
+      preLoaderRoute: typeof AuthenticatedEntrepriseHistoriqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/messagerie': {
+      id: '/_authenticated/entreprise/messagerie'
+      path: '/entreprise/messagerie'
+      fullPath: '/entreprise/messagerie'
+      preLoaderRoute: typeof AuthenticatedEntrepriseMessagerieRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/paiements': {
+      id: '/_authenticated/entreprise/paiements'
+      path: '/entreprise/paiements'
+      fullPath: '/entreprise/paiements'
+      preLoaderRoute: typeof AuthenticatedEntreprisePaiementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/parametres': {
+      id: '/_authenticated/entreprise/parametres'
+      path: '/entreprise/parametres'
+      fullPath: '/entreprise/parametres'
+      preLoaderRoute: typeof AuthenticatedEntrepriseParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/entreprise/recommandations': {
       id: '/_authenticated/entreprise/recommandations'
       path: '/entreprise/recommandations'
       fullPath: '/entreprise/recommandations'
       preLoaderRoute: typeof AuthenticatedEntrepriseRecommandationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/entreprise/shortlist': {
+      id: '/_authenticated/entreprise/shortlist'
+      path: '/entreprise/shortlist'
+      fullPath: '/entreprise/shortlist'
+      preLoaderRoute: typeof AuthenticatedEntrepriseShortlistRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/freelance/candidatures': {
@@ -771,8 +571,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedEntrepriseCandidaturesRoute: typeof AuthenticatedEntrepriseCandidaturesRoute
   AuthenticatedEntrepriseDashboardRoute: typeof AuthenticatedEntrepriseDashboardRoute
+  AuthenticatedEntrepriseEntretiensRoute: typeof AuthenticatedEntrepriseEntretiensRoute
+  AuthenticatedEntrepriseHistoriqueRoute: typeof AuthenticatedEntrepriseHistoriqueRoute
+  AuthenticatedEntrepriseMessagerieRoute: typeof AuthenticatedEntrepriseMessagerieRoute
+  AuthenticatedEntreprisePaiementsRoute: typeof AuthenticatedEntreprisePaiementsRoute
+  AuthenticatedEntrepriseParametresRoute: typeof AuthenticatedEntrepriseParametresRoute
   AuthenticatedEntrepriseRecommandationsRoute: typeof AuthenticatedEntrepriseRecommandationsRoute
+  AuthenticatedEntrepriseShortlistRoute: typeof AuthenticatedEntrepriseShortlistRoute
   AuthenticatedFreelanceCandidaturesRoute: typeof AuthenticatedFreelanceCandidaturesRoute
   AuthenticatedFreelanceDashboardRoute: typeof AuthenticatedFreelanceDashboardRoute
   AuthenticatedFreelanceMessagerieRoute: typeof AuthenticatedFreelanceMessagerieRoute
@@ -789,9 +596,21 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedEntrepriseCandidaturesRoute:
+    AuthenticatedEntrepriseCandidaturesRoute,
   AuthenticatedEntrepriseDashboardRoute: AuthenticatedEntrepriseDashboardRoute,
+  AuthenticatedEntrepriseEntretiensRoute:
+    AuthenticatedEntrepriseEntretiensRoute,
+  AuthenticatedEntrepriseHistoriqueRoute:
+    AuthenticatedEntrepriseHistoriqueRoute,
+  AuthenticatedEntrepriseMessagerieRoute:
+    AuthenticatedEntrepriseMessagerieRoute,
+  AuthenticatedEntreprisePaiementsRoute: AuthenticatedEntreprisePaiementsRoute,
+  AuthenticatedEntrepriseParametresRoute:
+    AuthenticatedEntrepriseParametresRoute,
   AuthenticatedEntrepriseRecommandationsRoute:
     AuthenticatedEntrepriseRecommandationsRoute,
+  AuthenticatedEntrepriseShortlistRoute: AuthenticatedEntrepriseShortlistRoute,
   AuthenticatedFreelanceCandidaturesRoute:
     AuthenticatedFreelanceCandidaturesRoute,
   AuthenticatedFreelanceDashboardRoute: AuthenticatedFreelanceDashboardRoute,
@@ -821,25 +640,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
-  CandidaturesRoute: CandidaturesRoute,
-  EntretiensRoute: EntretiensRoute,
-  HistoriqueRoute: HistoriqueRoute,
-  MessagerieRoute: MessagerieRoute,
-  PaiementsRoute: PaiementsRoute,
-  ParametresRoute: ParametresRoute,
   ProduitRoute: ProduitRoute,
-  RecommandationsRoute: RecommandationsRoute,
-  ShortlistRoute: ShortlistRoute,
-  SuiviRoute: SuiviRoute,
   TarifsRoute: TarifsRoute,
-  DashboardEntrepriseRoute: DashboardEntrepriseRoute,
-  DashboardFreelanceRoute: DashboardFreelanceRoute,
-  FreelancesFreelanceIdRoute: FreelancesFreelanceIdRoute,
-  MissionsMissionIdRoute: MissionsMissionIdRoute,
-  OnboardingEntrepriseRoute: OnboardingEntrepriseRoute,
-  OnboardingFreelanceRoute: OnboardingFreelanceRoute,
-  FreelancesIndexRoute: FreelancesIndexRoute,
-  MissionsIndexRoute: MissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
