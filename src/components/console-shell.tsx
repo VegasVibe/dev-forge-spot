@@ -172,6 +172,9 @@ function ConsoleShell({
                 <h1 className="mt-1 font-display font-semibold text-[32px] sm:text-[40px] leading-[1.05] tracking-tight">
                   {title}
                 </h1>
+                <div className="mt-2">
+                  <AccountTypeBadge role={role} />
+                </div>
               </div>
               {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
             </div>
